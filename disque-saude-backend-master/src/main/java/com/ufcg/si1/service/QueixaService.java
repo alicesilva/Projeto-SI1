@@ -16,14 +16,17 @@ public interface QueixaService {
 
 	Queixa findById(long id);
 
-	void updateQueixa(Queixa user);
+	Queixa atualizaQueixa(long id, Queixa queixa) throws Exception;
 
 
-	void deleteQueixaById(long id);
+	Queixa excluiQueixaPorId(long id) throws Exception;
 
     int size();
 
 	Iterator<Queixa> getIterator();
+
+
+	Queixa fecharQueixa(Queixa queixaAFechar) throws Exception;
 
 
 //	boolean isUserExist(Queixa user);

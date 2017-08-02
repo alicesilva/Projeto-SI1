@@ -34,47 +34,6 @@ public class RestApiController {
     private int situacaoAtualPrefeitura = 0;
 
 
-    // -------------------Retrieve All Complaints---------------------------------------------
-
-
-    @RequestMapping(value = "/queixa/{id}", method = RequestMethod.PUT)
-    public ResponseEntity<?> updateQueixa(@PathVariable("id") long id, @RequestBody Queixa queixa) {
-
-        Queixa currentQueixa = queixaService.findById(id);
-
-        if (currentQueixa == null) {
-            return new ResponseEntity(new CustomErrorType("Unable to upate. Queixa with id " + id + " not found."),
-                    HttpStatus.NOT_FOUND);
-        }
-
-        currentQueixa.setDescricao(queixa.getDescricao());
-        currentQueixa.setComentario(queixa.getComentario());
-
-        queixaService.updateQueixa(currentQueixa);
-        return new ResponseEntity<Queixa>(currentQueixa, HttpStatus.OK);
-    }
-
-    @RequestMapping(value = "/queixa/{id}", method = RequestMethod.DELETE)
-    public ResponseEntity<?> deleteUser(@PathVariable("id") long id) {
-
-        Queixa user = queixaService.findById(id);
-        if (user == null) {
-            return new ResponseEntity(new CustomErrorType("Unable to delete. Queixa with id " + id + " not found."),
-                    HttpStatus.NOT_FOUND);
-        }
-        queixaService.deleteQueixaById(id);
-        return new ResponseEntity<Queixa>(HttpStatus.NO_CONTENT);
-    }
-
-
-    @RequestMapping(value = "/queixa/fechamento", method = RequestMethod.POST)
-    public ResponseEntity<?> fecharQueixa(@RequestBody Queixa queixaAFechar) {
-        queixaAFechar.situacao = Queixa.FECHADA;
-        queixaService.updateQueixa(queixaAFechar);
-        return new ResponseEntity<Queixa>(queixaAFechar, HttpStatus.OK);
-    }
-
-
     //Especialidade
 
     @RequestMapping(value = "/especialidade/unidades", method = RequestMethod.GET)

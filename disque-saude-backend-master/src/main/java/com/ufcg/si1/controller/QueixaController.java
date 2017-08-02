@@ -58,4 +58,39 @@ public class QueixaController {
 		return new ResponseEntity<Queixa>(queixaEncontrada, HttpStatus.OK);
 	}
 
+	@RequestMapping(value = "/queixa/{id}", method = RequestMethod.PUT)
+	public ResponseEntity<Queixa> atualizaQueixa(@PathVariable("id") long id, @RequestBody Queixa queixa) {
+		try {
+			queixaService.atualizaQueixa(id, queixa);
+			return new ResponseEntity<Queixa>(queixa, HttpStatus.OK);
+		} catch (Exception e) {
+			return new ResponseEntity(new CustomErrorType("Queixa com id " + id + " não encontrada"),
+					HttpStatus.NOT_FOUND);
+		}
+	}
+
+	@RequestMapping(value = "/queixa/{id}", method = RequestMethod.DELETE)
+	public ResponseEntity<Queixa> excluiQueixa(@PathVariable("id") long id) {
+		try {
+			queixaService.excluiQueixaPorId(id);
+			return new ResponseEntity<Queixa>(HttpStatus.OK);
+		} catch (Exception e) {
+			return new ResponseEntity(new CustomErrorType("Não é possível excluir. Queixa com id " + id + " não encontrada."),
+					HttpStatus.NOT_FOUND);
+		}
+	}
+	
+    @RequestMapping(value = "/queixa/fechamento", method = RequestMethod.POST)
+    public ResponseEntity<?> fecharQueixa(@RequestBody Queixa queixaAFechar) {
+    	long id = queixaAFechar.getId();
+        try {
+			queixaService.fecharQueixa(queixaAFechar);
+			return new ResponseEntity<Queixa>(queixaAFechar, HttpStatus.OK);
+		} catch (Exception e) {
+			return new ResponseEntity(new CustomErrorType("Não é possível fechar. Queixa com id " + id + " não encontrada."),
+					HttpStatus.NOT_FOUND);
+		}
+        
+    }
+
 }
