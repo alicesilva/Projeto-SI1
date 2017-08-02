@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 import java.util.Arrays;
 import java.util.List;
 
-@Service("especialidadeService")
+@Service
 public class EspecialidadeServiceImpl implements EspecialidadeService {
 
     private Especialidade[] vetor;

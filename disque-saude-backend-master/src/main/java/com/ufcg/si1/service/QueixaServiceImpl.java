@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.concurrent.atomic.AtomicLong;
 
 
-@Service("queixaService")
+@Service
 public class QueixaServiceImpl implements QueixaService {
 
     private static final AtomicLong counter = new AtomicLong();
