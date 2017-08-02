@@ -1,5 +1,6 @@
 package com.ufcg.si1.controller;
 
+import java.util.Iterator;
 import java.util.List;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,6 +16,7 @@ import com.ufcg.si1.model.Queixa;
 import com.ufcg.si1.service.QueixaService;
 import com.ufcg.si1.service.QueixaServiceImpl;
 import com.ufcg.si1.util.CustomErrorType;
+import com.ufcg.si1.util.ObjWrapper;
 
 import exceptions.ObjetoInvalidoException;
 
@@ -96,6 +98,22 @@ public class QueixaController {
         
 		return new ResponseEntity<Queixa>(queixaAFechar, HttpStatus.OK);
 
+    }
+    
+    @RequestMapping(value = "/geral/situacao", method = RequestMethod.GET)
+    public ResponseEntity<?> getSituacaoGeralQueixas() {
+
+        // dependendo da situacao da prefeitura, o criterio de avaliacao muda
+        // se normal, mais de 20% abertas eh ruim, mais de 10 eh regular
+        // se extra, mais de 10% abertas eh ruim, mais de 5% eh regular
+        
+    	Integer situacao = queixaService.getSituacaoGeralQueixas();
+    	
+        //situacao retornada
+        //0: RUIM
+        //1: REGULAR
+        //2: BOM
+        return new ResponseEntity<ObjWrapper<Integer>>(new ObjWrapper<Integer>(situacao), HttpStatus.OK);
     }
 
 }

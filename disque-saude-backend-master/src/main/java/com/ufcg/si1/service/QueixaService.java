@@ -27,6 +27,8 @@ public interface QueixaService {
 
 
 	Queixa fecharQueixa(Queixa queixaAFechar) throws Exception;
+	
+	Integer getSituacaoGeralQueixas();
 
 
 //	boolean isUserExist(Queixa user);
