@@ -143,21 +143,6 @@ public class RestApiController {
         return new ResponseEntity<List>(HttpStatus.NOT_FOUND);
     }
 
-    @RequestMapping(value = "/unidade/", method = RequestMethod.GET)
-    public ResponseEntity<?> getAllUnidades() {
-        List<Object> unidades = unidadeSaudeService.getAll();
-        if (unidades.isEmpty()) return new ResponseEntity<List>(HttpStatus.NOT_FOUND);
-        else{
-            List<UnidadeSaude> unidadeSaudes = new ArrayList<>();
-            for (Object  saude: unidades) {
-                if(saude instanceof UnidadeSaude){
-                    unidadeSaudes.add((UnidadeSaude) saude);
-                }
-            }
-            return new ResponseEntity<>(unidadeSaudes, HttpStatus.OK);
-        }
-    }
-
     @RequestMapping(value = "/especialidade/", method = RequestMethod.POST)
     public ResponseEntity<String> incluirEspecialidade(@RequestBody Especialidade esp, UriComponentsBuilder ucBuilder) {
         try {
@@ -174,24 +159,6 @@ public class RestApiController {
     }
 
 
-    //how to save a subclass object?
-    @RequestMapping(value = "/unidade/", method = RequestMethod.POST)
-    public ResponseEntity<String> incluirUnidadeSaude(@RequestBody UnidadeSaude us, UriComponentsBuilder ucBuilder) {
-
-        try {
-            unidadeSaudeService.insere(us);
-        } catch (Rep e) {
-            return new ResponseEntity<String>(HttpStatus.BAD_REQUEST);
-        } catch (ObjetoJaExistenteException e) {
-            return new ResponseEntity<String>(HttpStatus.CONFLICT);
-        }
-
-        HttpHeaders headers = new HttpHeaders();
-        headers.setLocation(ucBuilder.path("/api/unidade/{id}").buildAndExpand(us.pegaCodigo()).toUri());
-        return new ResponseEntity<String>(headers, HttpStatus.CREATED);
-    }
-
-
     @RequestMapping(value = "/especialidade/{id}", method = RequestMethod.GET)
     public ResponseEntity<?> consultarEspecialidade(@PathVariable("id") long id) {
 
@@ -201,17 +168,6 @@ public class RestApiController {
                     + " not found"), HttpStatus.NOT_FOUND);
         }
         return new ResponseEntity<Especialidade>(q, HttpStatus.OK);
-    }
-
-    @RequestMapping(value = "/unidade/{id}", method = RequestMethod.GET)
-    public ResponseEntity<?> consultarUnidadeSaude(@PathVariable("id") long id) {
-
-        Object us = unidadeSaudeService.findById(id);
-        if (us == null) {
-            return new ResponseEntity(new CustomErrorType("Unidade with id " + id
-                    + " not found"), HttpStatus.NOT_FOUND);
-        }
-        return new ResponseEntity<>(us, HttpStatus.OK);
     }
 
 
@@ -265,17 +221,6 @@ public class RestApiController {
         //1: REGULAR
         //2: BOM
         return new ResponseEntity<ObjWrapper<Integer>>(new ObjWrapper<Integer>(2), HttpStatus.OK);
-    }
-
-    @RequestMapping(value="/unidade/busca", method= RequestMethod.GET)
-    public ResponseEntity<?> consultarUnidadeSaudePorBairro(@RequestParam(value = "bairro", required = true) String bairro){
-        Object us = unidadeSaudeService.findByBairro(bairro);
-        if (us == null && !(us instanceof UnidadeSaude)) {
-            return new ResponseEntity(new CustomErrorType("Unidade with bairro " + bairro
-                    + " not found"), HttpStatus.NOT_FOUND);
-        }
-
-        return new ResponseEntity<UnidadeSaude>((UnidadeSaude) us, HttpStatus.OK);
     }
 
     private double numeroQueixasAbertas() {
