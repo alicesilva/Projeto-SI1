@@ -1,6 +1,11 @@
 package com.ufcg.si1.service;
 
 import com.ufcg.si1.model.Queixa;
+import com.ufcg.si1.util.CustomErrorType;
+import com.ufcg.si1.util.ObjWrapper;
+
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -9,12 +14,18 @@ import java.util.List;
 import java.util.concurrent.atomic.AtomicLong;
 
 
-@Service("queixaService")
+
+@Service
 public class QueixaServiceImpl implements QueixaService {
 
     private static final AtomicLong counter = new AtomicLong();
 
     private static List<Queixa> queixas;
+
+    /* situação normal =0
+    situação extra =1
+     */
+    private int situacaoAtualPrefeitura = 0;
 
     static {
         queixas = populateDummyQueixas();
@@ -53,20 +64,32 @@ public class QueixaServiceImpl implements QueixaService {
         queixas.add(queixa);
     }
 
-    public void updateQueixa(Queixa queixa) {
-        int index = queixas.indexOf(queixa);
+
+    public Queixa atualizaQueixa(long id, Queixa queixa) throws Exception {
+        Queixa queixaAtual = findById(id);
+        if (queixaAtual == null) {
+            throw new Exception("Unable to upate. Queixa with id " + id + " not found.");
+        }
+    	int index = queixas.indexOf(queixa);
+    	queixaAtual.setDescricao(queixa.getDescricao());
+        queixaAtual.setComentario(queixa.getComentario());
         queixas.set(index, queixa);
+        return queixa;
     }
 
-    public void deleteQueixaById(long id) {
-
+    public Queixa excluiQueixaPorId(long id) throws Exception {
+    	Queixa queixaExcluida = findById(id);
+    	if (queixaExcluida == null) {
+            throw new Exception("Unable to delete. Queixa with id " + id + " not found.");
+        }
         for (Iterator<Queixa> iterator = queixas.iterator(); iterator.hasNext(); ) {
-            Queixa q = iterator.next();
-            if (q.getId() == id) {
+            Queixa queixaAtual = iterator.next();
+            if (queixaAtual.getId() == id) {
                 iterator.remove();
             }
         }
-    }
+        return queixaExcluida;
+        
 
     @Override
     //este metodo nunca eh chamado, mas se precisar estah aqui
@@ -91,6 +114,51 @@ public class QueixaServiceImpl implements QueixaService {
         }
         return null;
     }
+
+
+	@Override
+	public Queixa fecharQueixa(Queixa queixaAFechar) throws Exception {
+		long id = queixaAFechar.getId();
+		queixaAFechar.situacao = Queixa.FECHADA;
+		atualizaQueixa(id, queixaAFechar);
+		return queixaAFechar;
+	}
+	
+	 private double numeroQueixasAbertas() {
+	        int contador = 0;
+	        Iterator<Queixa> it = getIterator();
+	        for (Iterator<Queixa> it1 = it; it1.hasNext(); ) {
+	            Queixa q = it1.next();
+	            if (q.getSituacao() == Queixa.ABERTA)
+	                contador++;
+	        }
+
+	        return contador;
+	    }
+	 
+	 public Integer getSituacaoGeralQueixas(){
+		 double calculo = (double)numeroQueixasAbertas() / size();
+		 if (situacaoAtualPrefeitura == 0) {
+	            if (calculo > 0.2) {
+	                return new Integer(0);
+	            } else {
+	                if (calculo > 0.1) {
+	                    return new Integer(1);
+	                }
+	            }
+	        }else {
+	            if (calculo > 0.1) {
+	                return new Integer(0);
+	            }else{
+	                if (calculo > 0.05) {
+	                    return new Integer(1);
+	                }
+	            }
+	        }
+		 
+		 return new Integer(2);
+	 }
+
 
 
 

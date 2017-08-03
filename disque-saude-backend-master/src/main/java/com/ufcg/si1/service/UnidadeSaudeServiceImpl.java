@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import java.util.Arrays;
 import java.util.List;
 
+
 @Service("unidadeSaudeService")
 public class UnidadeSaudeServiceImpl implements UnidadeSaudeService {
     private Object[] vetorUnidadeSaude;
@@ -17,6 +18,7 @@ public class UnidadeSaudeServiceImpl implements UnidadeSaudeService {
     private int indice;
 
     private int geraCodigo = 0; // para gerar codigos das queixas cadastradas
+
     
     private static final String NAOENCONTRADA = "Não achou unidade";
     private static final String ERROINCLUSAOARRAY = "Erro ao incluir no array";
@@ -106,6 +108,7 @@ public class UnidadeSaudeServiceImpl implements UnidadeSaudeService {
                     existe = true;
                     break;
                 }
+
             }else if (this.vetorUnidadeSaude[i] instanceof Hospital){
                 Hospital hospital = (Hospital) vetorUnidadeSaude[i];
                 if (hospital.getCodigo() == codigo){
@@ -120,6 +123,7 @@ public class UnidadeSaudeServiceImpl implements UnidadeSaudeService {
     }
 
     public Object findById(long id) {
+
     	Object result = null;
         for (Object especialidade: vetorUnidadeSaude) {
             if (especialidade instanceof UnidadeSaude){
@@ -141,6 +145,7 @@ public class UnidadeSaudeServiceImpl implements UnidadeSaudeService {
 
     @Override
     public Object findByBairro(String bairro) {
+
     	Object result = null;
         for (Object unidSaudeBairro: vetorUnidadeSaude) {
             if (unidSaudeBairro instanceof UnidadeSaude){;
