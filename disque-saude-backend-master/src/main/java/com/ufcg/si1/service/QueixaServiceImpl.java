@@ -14,12 +14,14 @@ import java.util.List;
 import java.util.concurrent.atomic.AtomicLong;
 
 
+
 @Service
 public class QueixaServiceImpl implements QueixaService {
 
     private static final AtomicLong counter = new AtomicLong();
 
     private static List<Queixa> queixas;
+
     /* situação normal =0
     situação extra =1
      */
@@ -62,6 +64,7 @@ public class QueixaServiceImpl implements QueixaService {
         queixas.add(queixa);
     }
 
+
     public Queixa atualizaQueixa(long id, Queixa queixa) throws Exception {
         Queixa queixaAtual = findById(id);
         if (queixaAtual == null) {
@@ -87,7 +90,6 @@ public class QueixaServiceImpl implements QueixaService {
         }
         return queixaExcluida;
         
-    }
 
     @Override
     //este metodo nunca eh chamado, mas se precisar estah aqui
@@ -112,6 +114,7 @@ public class QueixaServiceImpl implements QueixaService {
         }
         return null;
     }
+
 
 	@Override
 	public Queixa fecharQueixa(Queixa queixaAFechar) throws Exception {
@@ -155,6 +158,7 @@ public class QueixaServiceImpl implements QueixaService {
 		 
 		 return new Integer(2);
 	 }
+
 
 
 

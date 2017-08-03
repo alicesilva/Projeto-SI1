@@ -16,10 +16,12 @@ public interface QueixaService {
 
 	Queixa findById(long id);
 
+
 	Queixa atualizaQueixa(long id, Queixa queixa) throws Exception;
 
 
 	Queixa excluiQueixaPorId(long id) throws Exception;
+
 
     int size();
 
@@ -29,7 +31,6 @@ public interface QueixaService {
 	Queixa fecharQueixa(Queixa queixaAFechar) throws Exception;
 	
 	Integer getSituacaoGeralQueixas();
-
 
 //	boolean isUserExist(Queixa user);
 	
