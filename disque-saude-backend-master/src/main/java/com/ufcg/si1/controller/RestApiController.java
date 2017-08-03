@@ -1,11 +1,9 @@
-package com.ufcg.si1.controller;
-
+﻿package com.ufcg.si1.controller;
 import br.edu.ufcg.Hospital;
 import com.ufcg.si1.model.*;
 import com.ufcg.si1.service.*;
 import com.ufcg.si1.util.CustomErrorType;
 import com.ufcg.si1.util.ObjWrapper;
-import exceptions.ObjetoInexistenteException;
 import exceptions.ObjetoInvalidoException;
 import exceptions.ObjetoJaExistenteException;
 import exceptions.Rep;
@@ -41,7 +39,7 @@ public class RestApiController {
         List<Queixa> queixas = queixaService.findAllQueixas();
 
         if (queixas.isEmpty()) {
-            return new ResponseEntity(HttpStatus.NO_CONTENT);
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
             // You many decide to return HttpStatus.NOT_FOUND
         }
         return new ResponseEntity<List<Queixa>>(queixas, HttpStatus.OK);
@@ -77,7 +75,7 @@ public class RestApiController {
 
         Queixa q = queixaService.findById(id);
         if (q == null) {
-            return new ResponseEntity(new CustomErrorType("Queixa with id " + id
+            return new ResponseEntity<>(new CustomErrorType("Queixa with id " + id
                     + " not found"), HttpStatus.NOT_FOUND);
         }
         return new ResponseEntity<Queixa>(q, HttpStatus.OK);
@@ -90,7 +88,7 @@ public class RestApiController {
         Queixa currentQueixa = queixaService.findById(id);
 
         if (currentQueixa == null) {
-            return new ResponseEntity(new CustomErrorType("Unable to upate. Queixa with id " + id + " not found."),
+            return new ResponseEntity<>(new CustomErrorType("Unable to upate. Queixa with id " + id + " not found."),
                     HttpStatus.NOT_FOUND);
         }
 
@@ -106,7 +104,7 @@ public class RestApiController {
 
         Queixa user = queixaService.findById(id);
         if (user == null) {
-            return new ResponseEntity(new CustomErrorType("Unable to delete. Queixa with id " + id + " not found."),
+            return new ResponseEntity<>(new CustomErrorType("Unable to delete. Queixa with id " + id + " not found."),
                     HttpStatus.NOT_FOUND);
         }
         queixaService.deleteQueixaById(id);
@@ -123,53 +121,6 @@ public class RestApiController {
 
 
     //Especialidade
-
-    @RequestMapping(value = "/especialidade/unidades", method = RequestMethod.GET)
-    public ResponseEntity<?> consultaEspecialidadeporUnidadeSaude(@RequestBody int codigoUnidadeSaude) {
-
-        Object us = null;
-        try {
-            us = unidadeSaudeService.procura(codigoUnidadeSaude);
-        } catch (Rep e) {
-            return new ResponseEntity<List>(HttpStatus.NOT_FOUND);
-        } catch (ObjetoInexistenteException e) {
-            return new ResponseEntity<List>(HttpStatus.NOT_FOUND);
-        }
-        if (us instanceof UnidadeSaude){
-            UnidadeSaude us1 = (UnidadeSaude) us;
-            return new ResponseEntity<>(us1.getEspecialidades(), HttpStatus.OK);
-        }
-
-        return new ResponseEntity<List>(HttpStatus.NOT_FOUND);
-    }
-
-    @RequestMapping(value = "/especialidade/", method = RequestMethod.POST)
-    public ResponseEntity<String> incluirEspecialidade(@RequestBody Especialidade esp, UriComponentsBuilder ucBuilder) {
-        try {
-            especialidadeService.insere(esp);
-        } catch (Rep e) {
-            return new ResponseEntity<String>(HttpStatus.BAD_REQUEST);
-        } catch (ObjetoJaExistenteException e) {
-            return new ResponseEntity<String>(HttpStatus.CONFLICT);
-        }
-
-        HttpHeaders headers = new HttpHeaders();
-        headers.setLocation(ucBuilder.path("/api/especialidade/{id}").buildAndExpand(esp.getCodigo()).toUri());
-        return new ResponseEntity<String>(headers, HttpStatus.CREATED);
-    }
-
-
-    @RequestMapping(value = "/especialidade/{id}", method = RequestMethod.GET)
-    public ResponseEntity<?> consultarEspecialidade(@PathVariable("id") long id) {
-
-        Especialidade q = especialidadeService.findById(id);
-        if (q == null) {
-            return new ResponseEntity(new CustomErrorType("Especialidade with id " + id
-                    + " not found"), HttpStatus.NOT_FOUND);
-        }
-        return new ResponseEntity<Especialidade>(q, HttpStatus.OK);
-    }
-
 
     @RequestMapping(value = "/geral/medicos/{id}", method = RequestMethod.GET)
     public ResponseEntity<?> calcularMediaMedicoPacienteDia(@PathVariable("id") long id) {
@@ -222,7 +173,6 @@ public class RestApiController {
         //2: BOM
         return new ResponseEntity<ObjWrapper<Integer>>(new ObjWrapper<Integer>(2), HttpStatus.OK);
     }
-
     private double numeroQueixasAbertas() {
         int contador = 0;
         Iterator<Queixa> it = queixaService.getIterator();
