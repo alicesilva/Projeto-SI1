@@ -1,5 +1,4 @@
-package com.ufcg.si1.controller;
-
+﻿package com.ufcg.si1.controller;
 import br.edu.ufcg.Hospital;
 import com.ufcg.si1.model.*;
 import com.ufcg.si1.service.*;
