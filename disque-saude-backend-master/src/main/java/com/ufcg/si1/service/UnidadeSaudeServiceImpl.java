@@ -12,14 +12,19 @@ import java.util.List;
 
 @Service("unidadeSaudeService")
 public class UnidadeSaudeServiceImpl implements UnidadeSaudeService {
-    private Object[] vetor;
+    private Object[] vetorUnidadeSaude;
 
     private int indice;
 
     private int geraCodigo = 0; // para gerar codigos das queixas cadastradas
-
+    
+    private static final String NAOENCONTRADA = "Não achou unidade";
+    private static final String ERROINCLUSAOARRAY = "Erro ao incluir no array";
+    private static final String JAEXISTE = "Objeto jah existe no array";
+    private static final String MENSAGEMERRO = "Erro!";
+    
     public UnidadeSaudeServiceImpl() {
-        vetor = new Object[100];
+        vetorUnidadeSaude = new Object[100];
         indice = 0;
     }
 
@@ -29,57 +34,61 @@ public class UnidadeSaudeServiceImpl implements UnidadeSaudeService {
             ObjetoInexistenteException {
         int i = 0;
         while (i < indice) {
-            if (vetor[i] instanceof UnidadeSaude){
-                UnidadeSaude unidadeSaude = (UnidadeSaude) vetor[i];
+            if (vetorUnidadeSaude[i] instanceof UnidadeSaude){
+                UnidadeSaude unidadeSaude = (UnidadeSaude) vetorUnidadeSaude[i];
                 if(unidadeSaude.pegaCodigo() == codigo){
-                    return vetor[i];
+                    return vetorUnidadeSaude[i];
                 }
-            }else if(vetor[i] instanceof Hospital){
-                Hospital hospital = (Hospital) vetor[i];
+            }else if(vetorUnidadeSaude[i] instanceof Hospital){
+                Hospital hospital = (Hospital) vetorUnidadeSaude[i];
                 if(hospital.getCodigo() == codigo){
-                    return vetor[i];
+                    return vetorUnidadeSaude[i];
                 }
             }
             i++;
         }
-        throw new ObjetoInexistenteException("Não achou unidade");
+        throw new ObjetoInexistenteException(NAOENCONTRADA);
     }
 
     @Override
     public List<Object> getAll() {
-        return Arrays.asList(vetor);
+        return Arrays.asList(vetorUnidadeSaude);
     }
 
     @Override
-    public void insere(Object us) throws Rep,
+    public void insere(Object unidSaude) throws Rep,
             ObjetoJaExistenteException {
 
-        if (us == null) {throw new Rep("Erro!");
-        } else{
-        if (us instanceof UnidadeSaude){
-        ((UnidadeSaude) us).mudaCodigo(++geraCodigo);
-        }else {
-        ((Hospital) us).setCodigo(++geraCodigo);
-        }}
-
-        if (indice == this.vetor.length) {
-        throw new Rep("Erro ao incluir no array");
+        if (unidSaude == null) {
+        	throw new Rep(MENSAGEMERRO);
+        } else {
+        
+        	if (unidSaude instanceof UnidadeSaude){
+        		((UnidadeSaude) unidSaude).mudaCodigo(++geraCodigo);
+        	} else {
+        		((Hospital) unidSaude).setCodigo(++geraCodigo);
+        	}
         }
 
-        if (us instanceof UnidadeSaude){
-        UnidadeSaude unidadeSaude = (UnidadeSaude) us;
-        if (this.existe(unidadeSaude.pegaCodigo())){
-        throw new ObjetoJaExistenteException("Objeto jah existe no array");
+        if (indice == this.vetorUnidadeSaude.length) {
+        	throw new Rep(ERROINCLUSAOARRAY);
         }
-        } else if (us instanceof Hospital){
-        Hospital hospital = (Hospital) us;
-        if (this.existe(hospital.getCodigo())){
-        throw new ObjetoJaExistenteException("Objeto jah existe no array");
-        }
+
+        if (unidSaude instanceof UnidadeSaude){
+        	UnidadeSaude unidadeSaude = (UnidadeSaude) unidSaude;
+        	if (this.existe(unidadeSaude.pegaCodigo())) {
+        		throw new ObjetoJaExistenteException(JAEXISTE);
+        	}
+        	
+        } else if (unidSaude instanceof Hospital) {
+        	Hospital hospital = (Hospital) unidSaude;
+        	if (this.existe(hospital.getCodigo())) {
+        		throw new ObjetoJaExistenteException(JAEXISTE);
+        	}
         }
 
 
-        this.vetor[indice] = us;
+        this.vetorUnidadeSaude[indice] = unidSaude;
         indice++;
     }
 
@@ -88,16 +97,17 @@ public class UnidadeSaudeServiceImpl implements UnidadeSaudeService {
         int indiceAux = 0;
         boolean existe = false;
 
+        //refatorar: while!
         for (int i = 0; i < indice; i++) {
-            if (this.vetor[i] instanceof UnidadeSaude){
-                UnidadeSaude unidadeSaude = (UnidadeSaude) vetor[i];
+            if (this.vetorUnidadeSaude[i] instanceof UnidadeSaude){
+                UnidadeSaude unidadeSaude = (UnidadeSaude) vetorUnidadeSaude[i];
                 if (unidadeSaude.pegaCodigo() == codigo){
                     indiceAux = i;
                     existe = true;
                     break;
                 }
-            }else if (this.vetor[i] instanceof Hospital){
-                Hospital hospital = (Hospital) vetor[i];
+            }else if (this.vetorUnidadeSaude[i] instanceof Hospital){
+                Hospital hospital = (Hospital) vetorUnidadeSaude[i];
                 if (hospital.getCodigo() == codigo){
                     indiceAux = i;
                     existe = true;
@@ -110,37 +120,43 @@ public class UnidadeSaudeServiceImpl implements UnidadeSaudeService {
     }
 
     public Object findById(long id) {
-        for (Object esp: vetor) {
-            if (esp instanceof UnidadeSaude){
-                UnidadeSaude unidadeSaude = (UnidadeSaude) esp;
+    	Object result = null;
+        for (Object especialidade: vetorUnidadeSaude) {
+            if (especialidade instanceof UnidadeSaude){
+                UnidadeSaude unidadeSaude = (UnidadeSaude) especialidade;
                 if (unidadeSaude != null && unidadeSaude.pegaCodigo() == id){
-                    return unidadeSaude;
+                    result = unidadeSaude;
+                	//return unidadeSaude;
                 }
-            }else if (esp instanceof Hospital){
-                Hospital hospital = (Hospital) esp;
+            }else if (especialidade instanceof Hospital){
+                Hospital hospital = (Hospital) especialidade;
                 if (hospital != null && hospital.getCodigo() == id){
-                    return hospital;
+                	result = hospital;
+                    //return hospital;
                 }
             }
         }
-        return null;
+        return result;
     }
 
     @Override
     public Object findByBairro(String bairro) {
-        for (Object esp: vetor) {
-            if (esp instanceof UnidadeSaude){;
-                UnidadeSaude u = (UnidadeSaude) esp;
-                if (u.pegaDescricao().equals(bairro)){
-                    return esp;
+    	Object result = null;
+        for (Object unidSaudeBairro: vetorUnidadeSaude) {
+            if (unidSaudeBairro instanceof UnidadeSaude){;
+                UnidadeSaude unidadeSaude = (UnidadeSaude) unidSaudeBairro;
+                if (unidadeSaude.pegaDescricao().equals(bairro)){
+                    result = unidSaudeBairro;
+                	//return unidSaudeBairro;
                 }
-            } else if (esp instanceof Hospital){
-                Hospital h = (Hospital) esp;
-                if (h.getDescricao().equals(bairro)){
-                    return esp;
+            } else if (unidSaudeBairro instanceof Hospital){
+                Hospital hospital = (Hospital) unidSaudeBairro;
+                if (hospital.getDescricao().equals(bairro)){
+                    result = unidSaudeBairro;
+                	//return unidSaudeBairro;
                 }
             }
         }
-        return null;
+        return result;
     }
 }
