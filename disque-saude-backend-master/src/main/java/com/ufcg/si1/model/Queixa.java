@@ -1,11 +1,19 @@
 package com.ufcg.si1.model;
 
 import exceptions.ObjetoInvalidoException;
+
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+
 import org.springframework.http.ResponseEntity;
 
+@Entity
 public class Queixa {
-
-	private long id;
+	
+	@Id
+	@GeneratedValue
+	private Integer id;
 
 	private String descricao;
 
@@ -20,10 +28,9 @@ public class Queixa {
 	private String comentario = ""; // usado na atualizacao da queixa
 
 	public Queixa(){
-		id=0;
 	}
 
-	public Queixa(long id, String descricao, int situacao, String comentario,
+	public Queixa(Integer id, String descricao, int situacao, String comentario,
                   String nome, String email,
 				  String rua, String uf, String cidade) {
 		this.id = id;
@@ -33,11 +40,11 @@ public class Queixa {
 		this.solicitante = new Pessoa(nome, email, rua, uf, cidade);
 	}
 
-	public long getId() {
+	public Integer getId() {
 		return id;
 	}
 
-	public void setId(long id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 

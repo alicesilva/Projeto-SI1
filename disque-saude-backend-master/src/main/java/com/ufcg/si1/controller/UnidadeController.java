@@ -6,11 +6,13 @@ import java.util.List;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import com.ufcg.si1.model.UnidadeSaude;
@@ -21,18 +23,19 @@ import com.ufcg.si1.util.CustomErrorType;
 import exceptions.ObjetoJaExistenteException;
 import exceptions.Rep;
 
+
+@RestController
+@RequestMapping("/api")
+@CrossOrigin
 public class UnidadeController {
 	
 	private static final String UNIDADEBAIRRO = "Unidade do bairro ";
 	private static final String NAOENCONTRADO = " not found";
-	private static final String UNIDADE = "/unidade/";
-	private static final String ROTABUSCA = "/unidade/busca";
 	private static final String UNIDADEID = "Unidade with id ";
-	private static final String ROTAID = "/unidade/{id}";
 
 	UnidadeSaudeService unidadeSaudeService = new UnidadeSaudeServiceImpl();
 	
-	@RequestMapping(value = UNIDADE, method = RequestMethod.GET)
+	@RequestMapping(value = "/unidade/", method = RequestMethod.GET)
     public ResponseEntity<?> getAllUnidades() {
         List<Object> unidades = unidadeSaudeService.getAll();
         if (unidades.isEmpty()) {
@@ -49,7 +52,7 @@ public class UnidadeController {
         }
     }
 	
-	@RequestMapping(value = UNIDADE, method = RequestMethod.POST)
+	@RequestMapping(value = "/unidade/", method = RequestMethod.POST)
     public ResponseEntity<String> incluirUnidadeSaude(@RequestBody UnidadeSaude unidadeSaude, UriComponentsBuilder ucBuilder) {
 
         try {
@@ -65,7 +68,7 @@ public class UnidadeController {
         return new ResponseEntity<String>(headers, HttpStatus.CREATED);
     }
 	
-	@RequestMapping(value=ROTABUSCA, method= RequestMethod.GET)
+	@RequestMapping(value="/unidade/busca", method= RequestMethod.GET)
 	public ResponseEntity<?> consultarUnidadeSaudePorBairro(@RequestParam(value = "bairro", required = true) String bairro){
 	        Object unidadeProcurada = unidadeSaudeService.findByBairro(bairro);
 	        
@@ -77,7 +80,7 @@ public class UnidadeController {
 	        return new ResponseEntity<UnidadeSaude>((UnidadeSaude) unidadeProcurada, HttpStatus.OK);
 	}
 	
-	@RequestMapping(value = ROTAID, method = RequestMethod.GET)
+	@RequestMapping(value = "/unidade/{id}", method = RequestMethod.GET)
 	public ResponseEntity<?> consultarUnidadeSaude(@PathVariable("id") long id) {
 
 	        Object unidadeSaude = unidadeSaudeService.findById(id);

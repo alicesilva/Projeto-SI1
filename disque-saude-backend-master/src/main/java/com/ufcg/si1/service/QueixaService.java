@@ -14,19 +14,16 @@ public interface QueixaService {
     void saveQueixa(Queixa queixa);
 
 
-	Queixa findById(long id);
+	Queixa findById(Integer id);
 
 
-	Queixa atualizaQueixa(long id, Queixa queixa) throws Exception;
+	Queixa atualizaQueixa(Integer id, Queixa queixa) throws Exception;
+	
 
-
-	Queixa excluiQueixaPorId(long id) throws Exception;
+	Queixa excluiQueixaPorId(Integer id) throws Exception;
 
 
     int size();
-
-	Iterator<Queixa> getIterator();
-
 
 	Queixa fecharQueixa(Queixa queixaAFechar) throws Exception;
 	
