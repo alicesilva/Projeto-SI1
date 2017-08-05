@@ -19,6 +19,10 @@ public class QueixaServiceImpl implements QueixaService {
     situação extra =1
      */
     private int situacaoAtualPrefeitura = 0;
+    
+    public QueixaServiceImpl(QueixaRepository queixaRepository){
+    	this.queixaRepository = queixaRepository;
+    }
 
     public List<Queixa> findAllQueixas() {
         return queixaRepository.findAll();

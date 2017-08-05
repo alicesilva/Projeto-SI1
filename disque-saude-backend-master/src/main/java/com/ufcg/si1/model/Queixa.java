@@ -2,11 +2,11 @@ package com.ufcg.si1.model;
 
 import exceptions.ObjetoInvalidoException;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-
-import org.springframework.http.ResponseEntity;
+import javax.persistence.OneToOne;
 
 @Entity
 public class Queixa {
@@ -16,7 +16,8 @@ public class Queixa {
 	private Integer id;
 
 	private String descricao;
-
+	
+	@OneToOne(cascade=CascadeType.ALL)
 	private Pessoa solicitante;
 
 	public int situacao; // usa variaveis estaticas abaixo

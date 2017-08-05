@@ -1,12 +1,30 @@
 package com.ufcg.si1.model;
 
-public class Endereco {
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 
+public class Endereco {
+	
+	private Integer id;
+	
 	private String rua;
 
 	private String uf;
 
 	private String cidade;
+
+	public void setRua(String rua) {
+		this.rua = rua;
+	}
+
+	public void setUf(String uf) {
+		this.uf = uf;
+	}
+
+	public void setCidade(String cidade) {
+		this.cidade = cidade;
+	}
 
 	public Endereco(){
 
@@ -28,5 +46,13 @@ public class Endereco {
 
 	public String getCidade() {
 		return this.cidade;
+	}
+	
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
 	}
 }

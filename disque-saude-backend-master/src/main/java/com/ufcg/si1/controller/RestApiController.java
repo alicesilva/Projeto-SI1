@@ -24,7 +24,6 @@ import java.util.List;
 @CrossOrigin
 public class RestApiController {
 
-    QueixaService queixaService = new QueixaServiceImpl();
     EspecialidadeService especialidadeService = new EspecialidadeServiceImpl();
     UnidadeSaudeService unidadeSaudeService = new UnidadeSaudeServiceImpl();
        
