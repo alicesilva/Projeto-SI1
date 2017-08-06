@@ -1,9 +1,14 @@
 package com.ufcg.si1.service;
 
 import com.ufcg.si1.model.Especialidade;
+import com.ufcg.si1.repository.EspecialidadeRepository;
+
+
 import exceptions.ObjetoInexistenteException;
 import exceptions.ObjetoJaExistenteException;
 import exceptions.Rep;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Arrays;
@@ -13,22 +18,29 @@ import java.util.List;
 @Service
 public class EspecialidadeServiceImpl implements EspecialidadeService {
 
-    private Especialidade[] vetor;
+	@Autowired
+	EspecialidadeRepository  especialidadeRepository;
 
     private int indice;
 
     private int geraCodigo = 0; // para gerar codigos
 
     public EspecialidadeServiceImpl() {
-        vetor = new Especialidade[100];
+    	//vetor = new Especialidade[100];
         indice = 0;
     }
 
     @Override
     public Especialidade procura(int codigo) throws Rep,
             ObjetoInexistenteException {
-
-        int i = 0;
+    	List<Especialidade> especialidades = especialidadeRepository.findAll();
+    	for (Especialidade especialidade : especialidades) {
+			if (especialidade.getCodigo() == codigo){
+				return especialidade;
+			}
+		}
+    	
+    	/*int i = 0;
 
         while (i < indice) {
             if (vetor[i].getCodigo() == codigo) {
@@ -36,7 +48,7 @@ public class EspecialidadeServiceImpl implements EspecialidadeService {
             }
 
             i++;
-        }
+        }*/
 
         throw new ObjetoInexistenteException("Erro Especialidade");
     }
@@ -44,7 +56,8 @@ public class EspecialidadeServiceImpl implements EspecialidadeService {
     @Override
     public List getListaEspecialidade()
             throws Rep, ObjetoInexistenteException {
-        return Arrays.asList(vetor);
+        return especialidadeRepository.findAll();
+        //return Arrays.asList(vetor);
     }
 
     @Override
@@ -54,10 +67,13 @@ public class EspecialidadeServiceImpl implements EspecialidadeService {
 
     @Override
     public Especialidade getElemento(int posicao) {
-        if (posicao < indice)
+        return especialidadeRepository.findOne(posicao);
+        
+    	/*
+    	if (posicao < indice)
             return this.vetor[posicao];
         else
-            return null;
+            return null;*/
     }
 
     @Override
@@ -65,23 +81,35 @@ public class EspecialidadeServiceImpl implements EspecialidadeService {
             ObjetoJaExistenteException {
 
         esp.setCodigo(++geraCodigo);
+        
+        /*
 
         if (indice == this.vetor.length) {
             throw new Rep("Erro ao incluir no array");
-        }
+        }*/
 
         if (this.existe(esp.getCodigo())) {
             throw new ObjetoJaExistenteException("Objeto jah existe no array");
         }
 
-        this.vetor[indice] = esp;
+        /*this.vetor[indice] = esp; */
+        especialidadeRepository.save(esp);
         indice++;
     }
 
     @Override
     public boolean existe(int codigo) {
-
-        int indiceAux = 0;
+    	
+    	
+    	List<Especialidade> especialidades = especialidadeRepository.findAll();
+    	for (Especialidade especialidade : especialidades) {
+			if (especialidade.getCodigo() == codigo){
+				return true;
+			}
+		}
+    	return false;
+    	
+        /*int indiceAux = 0;
         boolean existe = false;
 
         for (int i = 0; i < indice; i++) {
@@ -93,16 +121,25 @@ public class EspecialidadeServiceImpl implements EspecialidadeService {
             }
         }
 
-        return existe;
+        return existe;*/
+    	
     }
 
     public Especialidade findById(long id) {
-        for (Especialidade esp: vetor) {
+    	List<Especialidade> especialidades = especialidadeRepository.findAll();
+    	for (Especialidade especialidade : especialidades) {
+			if (especialidade.getCodigo() == id){
+				return especialidade;
+			}
+		}
+    	return null;
+    	
+    	/* for (Especialidade esp: vetor) {
             if (esp.getCodigo() == id) {
                 return esp;
             }
         }
-        return null;
+        return null;*/
     }
 
 
