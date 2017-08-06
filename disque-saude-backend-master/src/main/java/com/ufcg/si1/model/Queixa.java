@@ -5,6 +5,7 @@ import exceptions.ObjetoInvalidoException;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
 
@@ -12,13 +13,16 @@ import javax.persistence.OneToOne;
 public class Queixa {
 	
 	@Id
-	@GeneratedValue
-	private Integer id;
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private Long id;
 
 	private String descricao;
 	
 	@OneToOne(cascade=CascadeType.ALL)
-	private Pessoa solicitante;
+	private Solicitante solicitante;
+	
+	@OneToOne(cascade=CascadeType.ALL)
+	private LocalizacaoDoProblema localizacaoDoProblema;
 
 	public int situacao; // usa variaveis estaticas abaixo
 	/* situacoes da queixa */
@@ -31,21 +35,22 @@ public class Queixa {
 	public Queixa(){
 	}
 
-	public Queixa(Integer id, String descricao, int situacao, String comentario,
+	public Queixa(Long id, String descricao, int situacao, String comentario,
                   String nome, String email,
 				  String rua, String uf, String cidade) {
 		this.id = id;
 		this.descricao = descricao;
 		this.situacao = situacao;
 		this.comentario = comentario;
-		this.solicitante = new Pessoa(nome, email, rua, uf, cidade);
+		this.solicitante = new Solicitante(nome, email);
+		this.localizacaoDoProblema = new LocalizacaoDoProblema(rua, uf, cidade);
 	}
 
-	public Integer getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(Integer id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
@@ -85,12 +90,20 @@ public class Queixa {
 		this.comentario = comentario;
 	}
 
-	public Pessoa getSolicitante() {
+	public Solicitante getSolicitante() {
 		return solicitante;
 	}
 
-	public void setSolicitante(Pessoa solicitante) {
+	public void setSolicitante(Solicitante solicitante) {
 		this.solicitante = solicitante;
+	}
+	
+	public LocalizacaoDoProblema getLocalizacaoDoProblema() {
+		return localizacaoDoProblema;
+	}
+
+	public void setLocalizacaoDoProblema(LocalizacaoDoProblema localizacaoDoProblema) {
+		this.localizacaoDoProblema = localizacaoDoProblema;
 	}
 
 	@Override

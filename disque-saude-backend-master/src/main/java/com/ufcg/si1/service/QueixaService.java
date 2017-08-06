@@ -1,9 +1,7 @@
 package com.ufcg.si1.service;
 
 
-import java.util.Iterator;
 import java.util.List;
-
 import com.ufcg.si1.model.Queixa;
 
 public interface QueixaService {
@@ -14,13 +12,13 @@ public interface QueixaService {
     void saveQueixa(Queixa queixa);
 
 
-	Queixa findById(Integer id);
+	Queixa findById(Long id);
 
 
-	Queixa atualizaQueixa(Integer id, Queixa queixa) throws Exception;
+	Queixa atualizaQueixa(Long id, Queixa queixa) throws Exception;
 	
 
-	Queixa excluiQueixaPorId(Integer id) throws Exception;
+	Queixa excluiQueixaPorId(Long id) throws Exception;
 
 
     int size();

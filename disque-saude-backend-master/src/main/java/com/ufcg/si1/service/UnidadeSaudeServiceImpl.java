@@ -1,167 +1,54 @@
 package com.ufcg.si1.service;
 
-import br.edu.ufcg.Hospital;
+import com.ufcg.si1.model.Especialidade;
 import com.ufcg.si1.model.UnidadeSaude;
-import exceptions.ObjetoInexistenteException;
-import exceptions.ObjetoJaExistenteException;
-import exceptions.Rep;
+import com.ufcg.si1.repository.UnidadeSaudeRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.util.Arrays;
 import java.util.List;
+import java.util.Set;
 
 
-@Service("unidadeSaudeService")
+@Service
 public class UnidadeSaudeServiceImpl implements UnidadeSaudeService {
-    private Object[] vetorUnidadeSaude;
+   
+	@Autowired
+	UnidadeSaudeRepository unidadeSaudeRepository;
 
-    private int indice;
+    public UnidadeSaudeServiceImpl(UnidadeSaudeRepository unidadeSaudeRepository) {
+        this.unidadeSaudeRepository = unidadeSaudeRepository;
+    }
 
-    private int geraCodigo = 0; // para gerar codigos das queixas cadastradas
-
+    @Override
+    public Set<Especialidade> getEspecialidades(Long id){
+    	UnidadeSaude unidadeEncontrada = findById(id);
+    	return unidadeEncontrada.getEspecialidades();
+    }
     
-    private static final String NAOENCONTRADA = "Não achou unidade";
-    private static final String ERROINCLUSAOARRAY = "Erro ao incluir no array";
-    private static final String JAEXISTE = "Objeto jah existe no array";
-    private static final String MENSAGEMERRO = "Erro!";
+    @Override
+    public List<UnidadeSaude> getAllUnidadesSaude() {
+        return unidadeSaudeRepository.findAll();
+    }
     
-    public UnidadeSaudeServiceImpl() {
-        vetorUnidadeSaude = new Object[100];
-        indice = 0;
-    }
-
-
     @Override
-    public Object procura(int codigo) throws Rep,
-            ObjetoInexistenteException {
-        int i = 0;
-        while (i < indice) {
-            if (vetorUnidadeSaude[i] instanceof UnidadeSaude){
-                UnidadeSaude unidadeSaude = (UnidadeSaude) vetorUnidadeSaude[i];
-                if(unidadeSaude.pegaCodigo() == codigo){
-                    return vetorUnidadeSaude[i];
-                }
-            }else if(vetorUnidadeSaude[i] instanceof Hospital){
-                Hospital hospital = (Hospital) vetorUnidadeSaude[i];
-                if(hospital.getCodigo() == codigo){
-                    return vetorUnidadeSaude[i];
-                }
-            }
-            i++;
-        }
-        throw new ObjetoInexistenteException(NAOENCONTRADA);
+    public UnidadeSaude insere(UnidadeSaude unidadeSaude){
+    	return unidadeSaudeRepository.save(unidadeSaude);
     }
-
+    
     @Override
-    public List<Object> getAll() {
-        return Arrays.asList(vetorUnidadeSaude);
-    }
-
-    @Override
-    public void insere(Object unidSaude) throws Rep,
-            ObjetoJaExistenteException {
-
-        if (unidSaude == null) {
-        	throw new Rep(MENSAGEMERRO);
-        } else {
+    public boolean existeUnidadeSaude(Long id) {
+    	return unidadeSaudeRepository.exists(id);
         
-        	if (unidSaude instanceof UnidadeSaude){
-        		((UnidadeSaude) unidSaude).mudaCodigo(++geraCodigo);
-        	} else {
-        		((Hospital) unidSaude).setCodigo(++geraCodigo);
-        	}
-        }
-
-        if (indice == this.vetorUnidadeSaude.length) {
-        	throw new Rep(ERROINCLUSAOARRAY);
-        }
-
-        if (unidSaude instanceof UnidadeSaude){
-        	UnidadeSaude unidadeSaude = (UnidadeSaude) unidSaude;
-        	if (this.existe(unidadeSaude.pegaCodigo())) {
-        		throw new ObjetoJaExistenteException(JAEXISTE);
-        	}
-        	
-        } else if (unidSaude instanceof Hospital) {
-        	Hospital hospital = (Hospital) unidSaude;
-        	if (this.existe(hospital.getCodigo())) {
-        		throw new ObjetoJaExistenteException(JAEXISTE);
-        	}
-        }
-
-
-        this.vetorUnidadeSaude[indice] = unidSaude;
-        indice++;
     }
-
+    
     @Override
-    public boolean existe(int codigo) {
-        int indiceAux = 0;
-        boolean existe = false;
-
-        //refatorar: while!
-        for (int i = 0; i < indice; i++) {
-            if (this.vetorUnidadeSaude[i] instanceof UnidadeSaude){
-                UnidadeSaude unidadeSaude = (UnidadeSaude) vetorUnidadeSaude[i];
-                if (unidadeSaude.pegaCodigo() == codigo){
-                    indiceAux = i;
-                    existe = true;
-                    break;
-                }
-
-            }else if (this.vetorUnidadeSaude[i] instanceof Hospital){
-                Hospital hospital = (Hospital) vetorUnidadeSaude[i];
-                if (hospital.getCodigo() == codigo){
-                    indiceAux = i;
-                    existe = true;
-                    break;
-                }
-            }
-        }
-
-        return existe;
+    public UnidadeSaude findById(long id) {
+    	return unidadeSaudeRepository.findOne(id);
     }
-
-    public Object findById(long id) {
-
-    	Object result = null;
-        for (Object especialidade: vetorUnidadeSaude) {
-            if (especialidade instanceof UnidadeSaude){
-                UnidadeSaude unidadeSaude = (UnidadeSaude) especialidade;
-                if (unidadeSaude != null && unidadeSaude.pegaCodigo() == id){
-                    result = unidadeSaude;
-                	//return unidadeSaude;
-                }
-            }else if (especialidade instanceof Hospital){
-                Hospital hospital = (Hospital) especialidade;
-                if (hospital != null && hospital.getCodigo() == id){
-                	result = hospital;
-                    //return hospital;
-                }
-            }
-        }
-        return result;
-    }
-
+    
     @Override
-    public Object findByBairro(String bairro) {
-
-    	Object result = null;
-        for (Object unidSaudeBairro: vetorUnidadeSaude) {
-            if (unidSaudeBairro instanceof UnidadeSaude){;
-                UnidadeSaude unidadeSaude = (UnidadeSaude) unidSaudeBairro;
-                if (unidadeSaude.pegaDescricao().equals(bairro)){
-                    result = unidSaudeBairro;
-                	//return unidSaudeBairro;
-                }
-            } else if (unidSaudeBairro instanceof Hospital){
-                Hospital hospital = (Hospital) unidSaudeBairro;
-                if (hospital.getDescricao().equals(bairro)){
-                    result = unidSaudeBairro;
-                	//return unidSaudeBairro;
-                }
-            }
-        }
-        return result;
+    public void adicionarEspecialidade(Especialidade esp, Long id) {
+    	UnidadeSaude unidadeSaudeEncontrada = findById(id);
+    	unidadeSaudeEncontrada.getEspecialidades().add(esp);
     }
 }

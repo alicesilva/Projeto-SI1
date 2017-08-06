@@ -55,7 +55,7 @@ public class QueixaController {
 	}
 
 	@RequestMapping(value = "/queixa/{id}", method = RequestMethod.GET)
-	public ResponseEntity<?> consultarQueixa(@PathVariable("id") Integer id) {
+	public ResponseEntity<?> consultarQueixa(@PathVariable("id") Long id) {
 
 		Queixa queixaEncontrada = queixaService.findById(id);
 		if (queixaEncontrada == null) {
@@ -65,7 +65,7 @@ public class QueixaController {
 	}
 
 	@RequestMapping(value = "/queixa/{id}", method = RequestMethod.PUT)
-	public ResponseEntity<?> atualizaQueixa(@PathVariable("id") Integer id, @RequestBody Queixa queixa) {
+	public ResponseEntity<?> atualizaQueixa(@PathVariable("id") Long id, @RequestBody Queixa queixa) {
 		try {
 			queixaService.atualizaQueixa(id, queixa);
 		} catch (Exception e) {
@@ -78,7 +78,7 @@ public class QueixaController {
 	}
 
 	@RequestMapping(value = "/queixa/{id}", method = RequestMethod.DELETE)
-	public ResponseEntity<?> excluiQueixa(@PathVariable("id") Integer id) {
+	public ResponseEntity<?> excluiQueixa(@PathVariable("id") Long id) {
 		try {
 			queixaService.excluiQueixaPorId(id);
 			} catch (Exception e) {

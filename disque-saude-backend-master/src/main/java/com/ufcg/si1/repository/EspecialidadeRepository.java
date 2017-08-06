@@ -7,6 +7,6 @@ import com.ufcg.si1.model.Especialidade;
 
 
 @Repository
-public interface EspecialidadeRepository extends JpaRepository<Especialidade, Integer>{
+public interface EspecialidadeRepository extends JpaRepository<Especialidade, Long>{
 	
 }

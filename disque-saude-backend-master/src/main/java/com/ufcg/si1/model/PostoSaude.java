@@ -1,13 +1,14 @@
 package com.ufcg.si1.model;
 
+import java.util.Set;
 
 public class PostoSaude extends UnidadeSaude{
     private int atendentes;
 
     private float taxaDiariaAtendimentos;
 
-    public PostoSaude(String descricao, int at, int taxa) {
-        super(descricao);
+    public PostoSaude(String descricao, int at, int taxa, Long id, Set<Especialidade> especialidades) {
+        super(descricao, id, especialidades);
         this.atendentes = at;
         this.taxaDiariaAtendimentos = taxa;
     }

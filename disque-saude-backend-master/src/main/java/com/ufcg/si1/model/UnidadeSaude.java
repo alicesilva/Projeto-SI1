@@ -2,59 +2,50 @@ package com.ufcg.si1.model;
 
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
-
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Set;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 
 @JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY, property = "type")
 @JsonSubTypes({
         @JsonSubTypes.Type(value = PostoSaude.class, name = "posto")
 })
+@Entity
 public class UnidadeSaude {
-    private int codigo;
+	
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+    private long id;
 
     private String descricao;
+    
+    @ManyToMany
+	private Set<Especialidade> especialidades;
 
-    private List especialidades = new ArrayList();
-
-    private long [] numeroQueixas = new long[1000];
-    int contador = 0;
-
-    public UnidadeSaude(String descricao) {
-        this.codigo = 0; // gerado no repositorio
+    public UnidadeSaude(String descricao, Long id, Set<Especialidade> especialidades) {
+    	this.id = id;
         this.descricao = descricao;
+        this.especialidades = especialidades;
     }
     public UnidadeSaude(){
     }
-
-    public void addQueixaProxima(long id) {
-        if (this instanceof PostoSaude){
-            numeroQueixas[contador++] = id;
-        }
-    }
-
-    public String pegaDescricao() {
-        return this.descricao;
-    }
-
-    public void mudaDescricao(String descricao) {
-        this.descricao = descricao;
-    }
-
-    public List<Especialidade> getEspecialidades() {
-        return this.especialidades;
-    }
-
-    public void adicionarEspecialidade(Especialidade esp) {
-        this.especialidades.add(esp);
-    }
-
-    public int pegaCodigo() {
-        return this.codigo;
-    }
-
-    public void mudaCodigo(int cod) {
-        this.codigo = cod;
-    }
-
+    
+    public long getId() {
+		return id;
+	}
+	public void setId(long id) {
+		this.id = id;
+	}
+	public String getDescricao() {
+		return descricao;
+	}
+	public void setDescricao(String descricao) {
+		this.descricao = descricao;
+	}
+	public Set<Especialidade> getEspecialidades() {
+		return especialidades;
+	}
 }

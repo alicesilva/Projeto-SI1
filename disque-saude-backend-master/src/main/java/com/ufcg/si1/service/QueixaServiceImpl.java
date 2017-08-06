@@ -33,7 +33,7 @@ public class QueixaServiceImpl implements QueixaService {
     }
 
 
-    public Queixa atualizaQueixa(Integer id, Queixa queixa) throws Exception {
+    public Queixa atualizaQueixa(Long id, Queixa queixa) throws Exception {
         Queixa queixaAtual = findById(id);
         if (queixaAtual == null) {
             throw new Exception("Unable to upate. Queixa with id " + id + " not found.");
@@ -44,7 +44,7 @@ public class QueixaServiceImpl implements QueixaService {
         return queixa;
     }
 
-    public Queixa excluiQueixaPorId(Integer id) throws Exception {
+    public Queixa excluiQueixaPorId(Long id) throws Exception {
     	Queixa queixaExcluida = findById(id);
     	if (queixaExcluida == null) {
             throw new Exception("Unable to delete. Queixa with id " + id + " not found.");
@@ -64,7 +64,7 @@ public class QueixaServiceImpl implements QueixaService {
         queixaRepository.deleteAll();
     }
 
-    public Queixa findById(Integer id) {
+    public Queixa findById(Long id) {
     	return queixaRepository.findOne(id);
     }
 

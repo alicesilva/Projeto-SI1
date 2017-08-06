@@ -5,7 +5,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
 @Entity
-public class Pessoa extends Endereco {
+public class Solicitante{
 	
 	@Id
 	@GeneratedValue
@@ -15,14 +15,11 @@ public class Pessoa extends Endereco {
 
 	private String email;
 
-	public Pessoa(){
-		super();
+	public Solicitante(){
 	}
 
 
-	public Pessoa(String nome, String email, String rua, String uf,
-			String cidade) {
-		super(rua, uf, cidade);
+	public Solicitante(String nome, String email) {
 		this.nome = nome;
 		this.email = email;
 	}

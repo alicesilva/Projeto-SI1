@@ -4,8 +4,11 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
-public class Endereco {
+@Entity
+public class LocalizacaoDoProblema {
 	
+	@Id
+	@GeneratedValue
 	private Integer id;
 	
 	private String rua;
@@ -26,11 +29,11 @@ public class Endereco {
 		this.cidade = cidade;
 	}
 
-	public Endereco(){
+	public LocalizacaoDoProblema(){
 
 	}
 
-	public Endereco(String rua, String uf, String cidade) {
+	public LocalizacaoDoProblema(String rua, String uf, String cidade) {
 		this.rua = rua;
 		this.uf = uf;
 		this.cidade = cidade;
