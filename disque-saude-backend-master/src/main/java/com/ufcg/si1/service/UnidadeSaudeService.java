@@ -5,9 +5,11 @@ import java.util.Set;
 import com.ufcg.si1.model.Especialidade;
 import com.ufcg.si1.model.UnidadeSaude;
 
+import exceptions.IdInexistenteException;
+
 
 public interface UnidadeSaudeService {
-	Set<Especialidade> getEspecialidades(Long id);
+	Set<Especialidade> getEspecialidades(Long id) throws IdInexistenteException;
 
 	List<UnidadeSaude> getAllUnidadesSaude();
 
@@ -15,7 +17,7 @@ public interface UnidadeSaudeService {
 
 	boolean existeUnidadeSaude(Long id);
 
-	UnidadeSaude findById(long id);
+	UnidadeSaude encontraPorId(long id)  throws IdInexistenteException;
 
-	void adicionarEspecialidade(Especialidade esp, Long id);
+	void adicionarEspecialidade(Especialidade esp, Long id)  throws IdInexistenteException;
 }

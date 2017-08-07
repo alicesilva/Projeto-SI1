@@ -1,11 +1,14 @@
 package com.ufcg.si1.service;
 
 import com.ufcg.si1.model.Especialidade;
+
+import exceptions.IdInexistenteException;
+
 import java.util.List;
 
 
 public interface EspecialidadeService {
-	public Especialidade getEspecialidade(Long id);
+	public Especialidade getEspecialidade(Long id)  throws IdInexistenteException;
 
     List<Especialidade> getAllEspecialidades();
 
