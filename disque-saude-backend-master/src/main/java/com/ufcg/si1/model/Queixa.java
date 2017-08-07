@@ -1,15 +1,28 @@
 package com.ufcg.si1.model;
 
 import exceptions.ObjetoInvalidoException;
-import org.springframework.http.ResponseEntity;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.OneToOne;
+
+@Entity
 public class Queixa {
-
-	private long id;
+	
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private Long id;
 
 	private String descricao;
-
-	private Pessoa solicitante;
+	
+	@OneToOne(cascade=CascadeType.ALL)
+	private Solicitante solicitante;
+	
+	@OneToOne(cascade=CascadeType.ALL)
+	private LocalizacaoDoProblema localizacaoDoProblema;
 
 	public int situacao; // usa variaveis estaticas abaixo
 	/* situacoes da queixa */
@@ -20,24 +33,24 @@ public class Queixa {
 	private String comentario = ""; // usado na atualizacao da queixa
 
 	public Queixa(){
-		id=0;
 	}
 
-	public Queixa(long id, String descricao, int situacao, String comentario,
+	public Queixa(Long id, String descricao, int situacao, String comentario,
                   String nome, String email,
 				  String rua, String uf, String cidade) {
 		this.id = id;
 		this.descricao = descricao;
 		this.situacao = situacao;
 		this.comentario = comentario;
-		this.solicitante = new Pessoa(nome, email, rua, uf, cidade);
+		this.solicitante = new Solicitante(nome, email);
+		this.localizacaoDoProblema = new LocalizacaoDoProblema(rua, uf, cidade);
 	}
 
-	public long getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(long id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
@@ -77,12 +90,20 @@ public class Queixa {
 		this.comentario = comentario;
 	}
 
-	public Pessoa getSolicitante() {
+	public Solicitante getSolicitante() {
 		return solicitante;
 	}
 
-	public void setSolicitante(Pessoa solicitante) {
+	public void setSolicitante(Solicitante solicitante) {
 		this.solicitante = solicitante;
+	}
+	
+	public LocalizacaoDoProblema getLocalizacaoDoProblema() {
+		return localizacaoDoProblema;
+	}
+
+	public void setLocalizacaoDoProblema(LocalizacaoDoProblema localizacaoDoProblema) {
+		this.localizacaoDoProblema = localizacaoDoProblema;
 	}
 
 	@Override

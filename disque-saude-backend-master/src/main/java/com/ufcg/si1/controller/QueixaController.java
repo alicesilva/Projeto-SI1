@@ -1,7 +1,8 @@
 package com.ufcg.si1.controller;
 
-import java.util.Iterator;
+
 import java.util.List;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -10,11 +11,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.util.UriComponentsBuilder;
-
 import com.ufcg.si1.model.Queixa;
 import com.ufcg.si1.service.QueixaService;
-import com.ufcg.si1.service.QueixaServiceImpl;
 import com.ufcg.si1.util.CustomErrorType;
 import com.ufcg.si1.util.ObjWrapper;
 
@@ -24,8 +22,14 @@ import exceptions.ObjetoInvalidoException;
 @RequestMapping("/api")
 @CrossOrigin
 public class QueixaController {
-
-	QueixaService queixaService = new QueixaServiceImpl();
+	
+	@Autowired
+	QueixaService queixaService;
+	
+	public QueixaController(QueixaService queixaService){
+		this.queixaService = queixaService;
+		
+	}
 
 	@RequestMapping(value = "/queixa/", method = RequestMethod.GET)
 	public ResponseEntity<List<Queixa>> listAllQueixas() {
@@ -51,7 +55,7 @@ public class QueixaController {
 	}
 
 	@RequestMapping(value = "/queixa/{id}", method = RequestMethod.GET)
-	public ResponseEntity<?> consultarQueixa(@PathVariable("id") long id) {
+	public ResponseEntity<?> consultarQueixa(@PathVariable("id") Long id) {
 
 		Queixa queixaEncontrada = queixaService.findById(id);
 		if (queixaEncontrada == null) {
@@ -61,7 +65,7 @@ public class QueixaController {
 	}
 
 	@RequestMapping(value = "/queixa/{id}", method = RequestMethod.PUT)
-	public ResponseEntity<?> atualizaQueixa(@PathVariable("id") long id, @RequestBody Queixa queixa) {
+	public ResponseEntity<?> atualizaQueixa(@PathVariable("id") Long id, @RequestBody Queixa queixa) {
 		try {
 			queixaService.atualizaQueixa(id, queixa);
 		} catch (Exception e) {
@@ -74,7 +78,7 @@ public class QueixaController {
 	}
 
 	@RequestMapping(value = "/queixa/{id}", method = RequestMethod.DELETE)
-	public ResponseEntity<?> excluiQueixa(@PathVariable("id") long id) {
+	public ResponseEntity<?> excluiQueixa(@PathVariable("id") Long id) {
 		try {
 			queixaService.excluiQueixaPorId(id);
 			} catch (Exception e) {
