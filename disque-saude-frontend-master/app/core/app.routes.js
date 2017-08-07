@@ -15,7 +15,7 @@ app.config(function ($routeProvider) {
         controller: "searchAverangeCtrl"
     }).when("/createdcomplaint/:id", {
         templateUrl : "view/successPage.html",
-        controller : "messageCreatedComplaintCtrl"
+        controller : "queixaController"
     }).when("/generalSituationComplaints", {
         templateUrl : "view/generalSituationComplaints.html",
         controller : "queixaController"
