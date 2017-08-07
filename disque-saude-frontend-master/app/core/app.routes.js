@@ -3,10 +3,10 @@ app.config(function ($routeProvider) {
         templateUrl: "view/search.html"
     }).when("/complaint/register", {
         templateUrl: "view/registerComplaint.html",
-        controller : "registerComplaintCtrl",
+        controller : "queixaController",
     }).when("/searchcomplaint", {
         templateUrl : "view/search_complaint.html",
-        controller: "searchComplaintCtrl"
+        controller: "queixaController"
     }).when("/search_health_unit", {
         templateUrl: "view/searchHealthUnit.html",
         controller : "searchHealthUnitCtrl",
@@ -18,7 +18,7 @@ app.config(function ($routeProvider) {
         controller : "messageCreatedComplaintCtrl"
     }).when("/generalSituationComplaints", {
         templateUrl : "view/generalSituationComplaints.html",
-        controller : "generalSituationComplaintsCtrl"
+        controller : "queixaController"
     }).otherwise({
         redirectTo: '/'
     });
