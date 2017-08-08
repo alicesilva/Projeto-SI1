@@ -3,6 +3,8 @@ package com.ufcg.si1.controller;
 import java.util.List;
 import java.util.Set;
 
+import javax.xml.ws.Response;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -53,8 +55,10 @@ public class UnidadeSaudeController {
         return new ResponseEntity<UnidadeSaude>(unidadeSaudeAdicionada, HttpStatus.CREATED);
     }
 	
-	@RequestMapping(value="/unidade/busca", method= RequestMethod.GET)
-	public void consultarUnidadeSaudePorBairro(@RequestParam(value = "bairro", required = true) String bairro){
+	@RequestMapping(value="/unidade/busca/{bairro}", method= RequestMethod.GET)
+	public ResponseEntity<UnidadeSaude> consultarUnidadeSaudePorBairro(@PathVariable("bairro")String bairro){
+		UnidadeSaude unidadeSaudeEncontrada = unidadeSaudeService.getUnidadeSaude(bairro);
+		return new ResponseEntity<UnidadeSaude>(unidadeSaudeEncontrada, HttpStatus.OK);
 	}
 	
 	@RequestMapping(value = "/unidade/{id}", method = RequestMethod.GET)
@@ -83,7 +87,7 @@ public class UnidadeSaudeController {
     }
 	
 	
-	@RequestMapping(value = "/geral/medicos/{id}", method = RequestMethod.GET)
+	/*@RequestMapping(value = "/geral/medicos/{id}", method = RequestMethod.GET)
     public ResponseEntity<?> calcularMediaMedicoPacienteDia(@PathVariable("id") long id) {
 		try {
 			Object unidade = unidadeSaudeService.encontraPorId(id);
@@ -102,11 +106,11 @@ public class UnidadeSaudeController {
 	        return new ResponseEntity<ObjWrapper<Double>>(new ObjWrapper<Double>(new Double(c)), HttpStatus.OK);
 		} catch (IdInexistenteException e) {
 			return new ResponseEntity<>(e, HttpStatus.NOT_FOUND);
-		}
+		}*/
         
 
         
-    }
+    //}
 	
 	
 }

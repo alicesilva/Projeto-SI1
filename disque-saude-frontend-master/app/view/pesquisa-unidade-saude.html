@@ -1,14 +1,14 @@
 <div class="container center">
     <div class="jumbotron">
         <form name="searchHUForm" class="form-horizontal">
-            <div for="inputVizinho" class="form-group">
+            <div for="inputBairro" class="form-group">
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                    <input type="text" class="form-control input-lg" ng-model="vizinho" id="inputVizinho" placeholder="Digite o bairro em que se encontra a unidade de saúde">
+                    <input type="text" class="form-control input-lg" ng-model="bairro" id="inputBairro" placeholder="Digite o bairro em que se encontra a unidade de saúde">
                 </div>
             </div>
             <div class="form-group">
                 <div class="col-lg-2 col-lg-offset-5 col-md-3 col-md-offset-5 col-sm-3 col-sm-offset-5 col-xs-3 col-xs-offset-5">
-                    <button class="btn btn-primary btn-lg" ng-click="procuraUS(vizinho)"><i class="fa fa-search"></i> Pesquisar</button>
+                    <button class="btn btn-primary btn-lg" ng-click="procuraUS(bairro)"><i class="fa fa-search"></i> Pesquisar</button>
                 </div>
             </div>
         </form>
@@ -20,9 +20,9 @@
             <ul class="list-group">
                 <div class="list-group-item row" ng-repeat="unidade in unidades">
                     <div class="col-lg-12">
-                        <h2 class="text-info">Unidade do Bairro: {{unidade.descricao}}</h2>
-                        <p>Código: {{unidade.codigo}}</p>
-                        <p>Tipo: {{unidade.type}}</p>
+                        <h2 class="text-info">Unidade do Bairro:</h2>
+                        <p>Código: {{unidade.id}}</p>
+                        <p>Tipo: {{unidade.tipo}}</p>
                         <p>Número de medicos: {{unidade.numeroMedicos}}</p>
                         <p>Número de pacientes por dia: {{unidade.numeroPacientesDia}}</p>
                         <p>Especialidades da unidade de saúde:

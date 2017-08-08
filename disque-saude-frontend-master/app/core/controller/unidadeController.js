@@ -13,8 +13,8 @@ app.controller("unidadeController", function ($scope, $http, unidadeApi) {
 
     $scope.unidades = [];
 
-    $scope.procuraUS = function (vizinho) {
-        unidadeApi.pesquisaUnidSaude(vizinho).then(function success(response) {
+    $scope.procuraUS = function (bairro) {
+        unidadeApi.pesquisaUnidSaude(bairro).then(function success(response) {
                 $scope.unidades = [];
                 $scope.unidades.push(response.data);
                 console.log("Foram encontradas Unidades de saúde");

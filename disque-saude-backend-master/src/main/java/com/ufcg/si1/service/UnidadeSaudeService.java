@@ -20,4 +20,6 @@ public interface UnidadeSaudeService {
 	UnidadeSaude encontraPorId(long id)  throws IdInexistenteException;
 
 	void adicionarEspecialidade(Especialidade esp, Long id)  throws IdInexistenteException;
+
+	UnidadeSaude getUnidadeSaude(String bairro);
 }

@@ -1,6 +1,7 @@
 	package com.ufcg.si1.service;
 
 import com.ufcg.si1.model.Queixa;
+import com.ufcg.si1.model.SituacaoDaQueixa;
 import com.ufcg.si1.repository.QueixaRepository;
 
 import exceptions.AcaoNaoPermitidaException;
@@ -30,7 +31,7 @@ public class QueixaServiceImpl implements QueixaService {
 	}
 
 	public void saveQueixa(Queixa queixa) throws AcaoNaoPermitidaException {
-		queixa.abrir();
+		abrirQueixa(queixa);
 		queixaRepository.save(queixa);
 	}
 
@@ -76,7 +77,7 @@ public class QueixaServiceImpl implements QueixaService {
 	@Override
 	public Queixa fecharQueixa(Queixa queixaAFechar) throws IdInexistenteException  {
 		Queixa queixa = encontraPorId(queixaAFechar.getId());
-		queixa.situacao = Queixa.FECHADA;
+		queixa.setSituacao(SituacaoDaQueixa.FECHADA);
 		queixaRepository.save(queixaAFechar);
 
 		return queixaAFechar;
@@ -89,7 +90,7 @@ public class QueixaServiceImpl implements QueixaService {
 		Iterator<Queixa> it = queixas.iterator();
 		for (Iterator<Queixa> it1 = it; it1.hasNext();) {
 			Queixa q = it1.next();
-			if (q.getSituacao() == Queixa.ABERTA)
+			if (q.getSituacao() == SituacaoDaQueixa.ABERTA)
 				contador++;
 		}
 
@@ -118,5 +119,20 @@ public class QueixaServiceImpl implements QueixaService {
 
 		return new Integer(2);
 	}
+	
+	public void abrirQueixa(Queixa queixa) throws AcaoNaoPermitidaException {
+		if (queixa.getSituacao() != SituacaoDaQueixa.ANDAMENTO)
+			queixa.setSituacao(SituacaoDaQueixa.ABERTA);
+		else
+			throw new AcaoNaoPermitidaException("Status inválido");
+	}
 
+	public void fechar(String coment, Queixa queixa) throws AcaoNaoPermitidaException {
+		if (queixa.getSituacao() == SituacaoDaQueixa.ANDAMENTO
+				|| queixa.getSituacao() == SituacaoDaQueixa.ABERTA) {
+			queixa.setSituacao(SituacaoDaQueixa.FECHADA);
+			queixa.setComentario(coment);
+		} else
+			throw new AcaoNaoPermitidaException("Status Inválido");
+	}
 }

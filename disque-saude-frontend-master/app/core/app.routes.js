@@ -22,8 +22,6 @@ app.config(function ($routeProvider) {
 
     }).when("/loginEcadastro", {
         templateUrl : "loginEcadastro/loginEcadastro.html"
-    })
-        
     }).otherwise({
         redirectTo: '/'
     });

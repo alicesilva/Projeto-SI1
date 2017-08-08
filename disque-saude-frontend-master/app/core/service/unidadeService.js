@@ -5,8 +5,8 @@ app.service("unidadeApi", function($http, config) {
 	}
 
 	
-	var _pesquisaUnidSaude = function(vizinho) {
-		return $http.get(config.baseUrl + "/unidade/busca?bairro=" + vizinho);
+	var _pesquisaUnidSaude = function(bairro) {
+		return $http.get(config.baseUrl + "/unidade/busca/" + bairro);
 	}
 
 	

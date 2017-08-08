@@ -24,23 +24,19 @@ public class Queixa {
 	@OneToOne(cascade=CascadeType.ALL)
 	private LocalizacaoDoProblema localizacaoDoProblema;
 
-	public int situacao; // usa variaveis estaticas abaixo
-	/* situacoes da queixa */
-	public static final int ABERTA = 1;
-	public static final int EM_ANDAMENTO = 2;
-	public static final int FECHADA = 3;
+	private SituacaoDaQueixa situacao;
 
 	private String comentario = ""; // usado na atualizacao da queixa
 
 	public Queixa(){
 	}
 
-	public Queixa(Long id, String descricao, int situacao, String comentario,
+	public Queixa(Long id, String descricao, String situacao, String comentario,
                   String nome, String email,
 				  String rua, String uf, String cidade) {
 		this.id = id;
 		this.descricao = descricao;
-		this.situacao = situacao;
+		this.situacao = SituacaoDaQueixa.valueOf(situacao);
 		this.comentario = comentario;
 		this.solicitante = new Solicitante(nome, email);
 		this.localizacaoDoProblema = new LocalizacaoDoProblema(rua, uf, cidade);
@@ -62,24 +58,14 @@ public class Queixa {
 		this.descricao = descricao;
 	}
 
-	public int getSituacao() {
+	
+
+	public SituacaoDaQueixa getSituacao() {
 		return situacao;
 	}
 
-	public void abrir() throws AcaoNaoPermitidaException {
-		if (this.situacao != Queixa.EM_ANDAMENTO)
-			this.situacao = Queixa.ABERTA;
-		else
-			throw new AcaoNaoPermitidaException("Status inválido");
-	}
-
-	public void fechar(String coment) throws AcaoNaoPermitidaException {
-		if (this.situacao == Queixa.EM_ANDAMENTO
-				|| this.situacao == Queixa.ABERTA) {
-			this.situacao = Queixa.FECHADA;
-			this.comentario = coment;
-		} else
-			throw new AcaoNaoPermitidaException("Status Inválido");
+	public void setSituacao(SituacaoDaQueixa situacao) {
+		this.situacao = situacao;
 	}
 
 	public String getComentario() {

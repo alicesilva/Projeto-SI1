@@ -22,16 +22,8 @@
             <div class="row" ng-if="queixa">
                 <div class="col-lg-12">
                     <h2 class="text-info">{{queixa.descricao}}</h2>
-                    <p>Situação: <span class="badge">{{queixa.situacao}}</span></p>
-                    <p>Solicitante</p>
-                    <ul class="list-group">
-                        <li class="list-group-item"><b>Nome: </b> {{queixa.solicitante.nome}}</li>
-                        <li class="list-group-item"><b>Email: </b> {{queixa.solicitante.email}}</li>
-                        <li class="list-group-item"><b>Rua: </b> {{queixa.solicitante.rua}}</li>
-                        <li class="list-group-item"><b>Cidade: </b> {{queixa.solicitante.cidade}}</li>
-                        <li class="list-group-item"><b>UF: </b> {{queixa.solicitante.uf}}</li>
-                    </ul>
-                    <hr>
+                    <p>Status: <span class="badge">{{queixa.situacao}}</span></p>
+                    <p>Comentário: <span class="badge">{{queixa.comentario}}</span></p>
                 </div>
             </div>
         </div>

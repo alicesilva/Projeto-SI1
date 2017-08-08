@@ -62,4 +62,9 @@ public class UnidadeSaudeServiceImpl implements UnidadeSaudeService {
     	UnidadeSaude unidadeSaudeEncontrada = encontraPorId(id);
     	unidadeSaudeEncontrada.getEspecialidades().add(esp);
     }
+
+	@Override
+	public UnidadeSaude getUnidadeSaude(String bairro) {
+		return unidadeSaudeRepository.searchUnidadeSaudeToBairro(bairro);
+	}
 }
