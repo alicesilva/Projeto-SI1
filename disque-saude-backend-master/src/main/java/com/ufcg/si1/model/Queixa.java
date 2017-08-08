@@ -1,6 +1,6 @@
 package com.ufcg.si1.model;
 
-import exceptions.ObjetoInvalidoException;
+import exceptions.AcaoNaoPermitidaException;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -66,20 +66,20 @@ public class Queixa {
 		return situacao;
 	}
 
-	public void abrir() throws ObjetoInvalidoException {
+	public void abrir() throws AcaoNaoPermitidaException {
 		if (this.situacao != Queixa.EM_ANDAMENTO)
 			this.situacao = Queixa.ABERTA;
 		else
-			throw new ObjetoInvalidoException("Status inválido");
+			throw new AcaoNaoPermitidaException("Status inválido");
 	}
 
-	public void fechar(String coment) throws ObjetoInvalidoException {
+	public void fechar(String coment) throws AcaoNaoPermitidaException {
 		if (this.situacao == Queixa.EM_ANDAMENTO
 				|| this.situacao == Queixa.ABERTA) {
 			this.situacao = Queixa.FECHADA;
 			this.comentario = coment;
 		} else
-			throw new ObjetoInvalidoException("Status Inválido");
+			throw new AcaoNaoPermitidaException("Status Inválido");
 	}
 
 	public String getComentario() {

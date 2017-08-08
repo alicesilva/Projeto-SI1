@@ -12,10 +12,8 @@
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
         <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
         <link rel="stylesheet" href="bower_components/components-font-awesome/css/font-awesome.css">
-        <link rel="stylesheet" href="assets/css/main.css">
-        <link rel="stylesheet" href="assets/css/animate.css">
-        <link rel="stylesheet" href="assets/css/searchHealthUnit.css">
-        <link rel="stylesheet" href="asserts/css/loginEcadastro.css">
+
+        <link rel="stylesheet" href="assets/css/style.css">
         <link rel="stylesheet" type="text/css" href="bower_components/angular-toastr/dist/angular-toastr.css" />
     </head>
     <body>
@@ -29,15 +27,15 @@
                             </div>
                             <ul class="nav navbar-nav">
                                 <li><a href="#/!"><i class="fa fa-home"></i> Home</a></li>
-                                <li><a href="#!search_health_unit"><i class="fa fa-search"></i> Consultar Unidade de Saúde</a></li>
-                                <li><a href="#!searchcomplaint"><i class="fa fa-search"></i> Pesquisar Queixa</a></li>
-                                <li><a href="#!searchaverage"><i class="fa fa-search"></i> Pesquisar Média Médico por Paciente</a></li>
-                                <li><a href="#!generalSituationComplaints"><i class="fa fa-search"></i> Situação geral das queixas</a></li>
-                                <li><a href="#!loginEcadastro"> Login | Cadastro</a></li>
+
+                                <li><a href="#!pesquisa_unidade_saude"><i class="fa fa-search"></i> Consultar Unidade de Saúde</a></li>
+                                <li><a href="#!pesquisaqueixa"><i class="fa fa-search"></i> Pesquisar Queixa</a></li>
+                                <li><a href="#!pesquisamedia"><i class="fa fa-search"></i> Pesquisar Média Médico por Paciente</a></li>
+                                <li><a href="#!situacaoGeralQueixas"><i class="fa fa-search"></i> Situação geral das queixas</a></li>
                             </ul>
                             <ul class="nav navbar-nav navbar-right">
                                 <li>
-                                    <a href="#!/complaint/register"><i class="fa fa-plus"></i> Adicionar Queixa</a>
+                                    <a href="#!/queixa/registra"><i class="fa fa-plus"></i> Adicionar Queixa</a>
                                 </li>
                             </ul>
                         </div>
@@ -64,8 +62,9 @@
         <script src="core/app.js"></script>
         <script src="core/app.routes.js"></script>
         <script src="core/config/configRoute.js"></script>
-        <script src="core/controller/mainCtrl.js"></script>
         <script src="core/service/queixaService.js"></script>
         <script src="core/controller/queixaController.js"></script>
+        <script src="core/service/unidadeService.js"></script>
+        <script src="core/controller/unidadeController.js"></script>
     </body>
 </html>

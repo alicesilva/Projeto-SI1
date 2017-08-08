@@ -3,6 +3,9 @@ package com.ufcg.si1.service;
 import com.ufcg.si1.model.Especialidade;
 import com.ufcg.si1.model.UnidadeSaude;
 import com.ufcg.si1.repository.UnidadeSaudeRepository;
+
+import exceptions.IdInexistenteException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.List;
@@ -20,8 +23,12 @@ public class UnidadeSaudeServiceImpl implements UnidadeSaudeService {
     }
 
     @Override
-    public Set<Especialidade> getEspecialidades(Long id){
-    	UnidadeSaude unidadeEncontrada = findById(id);
+    public Set<Especialidade> getEspecialidades(Long id) throws IdInexistenteException{
+    	UnidadeSaude unidadeEncontrada = encontraPorId(id);
+    	if (unidadeEncontrada == null){
+    		throw new IdInexistenteException("Não há nenhuma especialidade com id " + id); 
+    	}
+    	
     	return unidadeEncontrada.getEspecialidades();
     }
     
@@ -42,13 +49,17 @@ public class UnidadeSaudeServiceImpl implements UnidadeSaudeService {
     }
     
     @Override
-    public UnidadeSaude findById(long id) {
-    	return unidadeSaudeRepository.findOne(id);
+    public UnidadeSaude encontraPorId(long id) throws IdInexistenteException  {
+    	UnidadeSaude unidadeSaude = unidadeSaudeRepository.findOne(id);
+    	if (unidadeSaude == null){
+    		throw new IdInexistenteException("Não há nenhuma unidade de saúde com id " + id);
+    	}
+    	return unidadeSaude;
     }
     
     @Override
-    public void adicionarEspecialidade(Especialidade esp, Long id) {
-    	UnidadeSaude unidadeSaudeEncontrada = findById(id);
+    public void adicionarEspecialidade(Especialidade esp, Long id) throws IdInexistenteException {
+    	UnidadeSaude unidadeSaudeEncontrada = encontraPorId(id);
     	unidadeSaudeEncontrada.getEspecialidades().add(esp);
     }
 }

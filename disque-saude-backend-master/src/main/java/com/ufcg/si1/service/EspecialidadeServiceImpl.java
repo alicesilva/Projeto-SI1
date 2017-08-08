@@ -4,6 +4,8 @@ import com.ufcg.si1.model.Especialidade;
 
 import com.ufcg.si1.repository.EspecialidadeRepository;
 
+import exceptions.IdInexistenteException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.List;
@@ -20,8 +22,13 @@ public class EspecialidadeServiceImpl implements EspecialidadeService {
     }
 
     @Override
-    public Especialidade getEspecialidade(Long id){
-    	return especialidadeRepository.findOne(id);
+    public Especialidade getEspecialidade(Long id) throws IdInexistenteException { //id inexistente
+    	Especialidade especialidade = especialidadeRepository.findOne(id);
+    	if(especialidade == null){
+    		throw new IdInexistenteException("Não há nenhuma especialidade com esse id");
+    	}
+    	
+    	return especialidade;
     }
 
     @Override
