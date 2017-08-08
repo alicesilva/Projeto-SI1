@@ -58,12 +58,12 @@ app.controller("queixaController", function ($scope,$http, queixaApi, toastr, $l
 
     getSituacaoGeralQueixas();
 
-    $scope.responseComplaintId = "";
-    var showMessage = function () {
-        $scope.responseComplaintId = $routeParams.id;
+    $scope.respostaQueixaId = "";
+    var mostrarMensagem = function () {
+        $scope.respostaQueixaId = $routeParams.id;
     }
 
-    showMessage();
+    mostrarMensagem();
 });
 
     

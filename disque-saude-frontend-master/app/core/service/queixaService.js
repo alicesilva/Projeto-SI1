@@ -9,7 +9,7 @@ app.service("queixaApi", function($http, config){
     }
 
     var _getSituacaoQueixas = function() {
-        return $http.get("http://localhost:5000/SpringBootRestApi/api/geral/situacao");
+        return $http.get(config.baseUrl +"/geral/situacao");
     }
 
     return {
