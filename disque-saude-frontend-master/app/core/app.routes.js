@@ -19,9 +19,12 @@ app.config(function ($routeProvider) {
     }).when("/situacaoGeralQueixas", {
         templateUrl : "view/situacao-geral-queixas.html",
         controller : "queixaController"
-
-    }).when("/loginEcadastro", {
-        templateUrl : "loginEcadastro/loginEcadastro.html"
+    }).when("/login", {
+        templateUrl : "view/login.html",
+        controller : "loginController"
+    }).when("/cadastro", {
+        templateUrl : "view/cadastro.html",
+        controller : "cadastroController"
     }).otherwise({
         redirectTo: '/'
     });
