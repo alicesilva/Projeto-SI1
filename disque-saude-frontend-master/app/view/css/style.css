@@ -13,3 +13,14 @@
 .loginAlerta {
 	display:none;
 }
+
+.caixaLogin {
+	margin-top:50px;
+}
+
+.esqueceuSenha {
+	float:right; 
+	font-size: 80%; 
+	position: relative; 
+	top:-10px;
+}
