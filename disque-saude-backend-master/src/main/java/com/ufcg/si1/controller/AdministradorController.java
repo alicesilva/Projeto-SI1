@@ -13,12 +13,13 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.ufcg.si1.model.Administrador;
 import com.ufcg.si1.service.AdministradorService;
+import com.ufcg.si1.util.Util;
 
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping(Util.ROTA_API)
 @CrossOrigin
 public class AdministradorController {
 	
@@ -26,14 +27,14 @@ public class AdministradorController {
 	AdministradorService administradorService;
 	
 	
-	@RequestMapping(value = "/cadastro/", method = RequestMethod.POST)
+	@RequestMapping(value = Util.ROTA_CADASTRO, method = RequestMethod.POST)
 	public ResponseEntity<Administrador> cadastroAdministrador(@RequestBody Administrador administrador){
 		Administrador admnistradorCadastrado = administradorService.cadastraAdministrador(administrador);
 		
 		return new ResponseEntity<Administrador>(admnistradorCadastrado, HttpStatus.CREATED);
 	}
 	
-	@RequestMapping(value="/login/", method= RequestMethod.POST)
+	@RequestMapping(value = Util.ROTA_LOGIN, method= RequestMethod.POST)
 	public LoginResponse autenticar(@RequestBody Administrador administrador) throws ServletException{
 		
 		if (administrador.getEmail() ==null || administrador.getSenha()==null){
