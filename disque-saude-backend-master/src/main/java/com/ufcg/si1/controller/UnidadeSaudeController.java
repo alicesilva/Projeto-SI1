@@ -22,13 +22,14 @@ import com.ufcg.si1.model.PostoSaude;
 import com.ufcg.si1.model.UnidadeSaude;
 import com.ufcg.si1.service.UnidadeSaudeService;
 import com.ufcg.si1.util.ObjWrapper;
+import com.ufcg.si1.util.Util;
 
 import br.edu.ufcg.Hospital;
 import exceptions.IdInexistenteException;
 
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping(Util.ROTA_API)
 @CrossOrigin
 public class UnidadeSaudeController {
 
@@ -39,7 +40,7 @@ public class UnidadeSaudeController {
 		this.unidadeSaudeService = unidadeSaudeService;
 	}
 	
-	@RequestMapping(value = "/unidade/", method = RequestMethod.GET)
+	@RequestMapping(value = Util.ROTA_UNIDADE, method = RequestMethod.GET)
     public ResponseEntity<?> getAllUnidades() {
         List<UnidadeSaude> unidadesSaude = unidadeSaudeService.getAllUnidadesSaude();
         if (unidadesSaude.isEmpty()) {
@@ -49,19 +50,19 @@ public class UnidadeSaudeController {
         }
     }
 	
-	@RequestMapping(value = "/unidade/", method = RequestMethod.POST)
+	@RequestMapping(value = Util.ROTA_UNIDADE, method = RequestMethod.POST)
     public ResponseEntity<UnidadeSaude> incluirUnidadeSaude(@RequestBody UnidadeSaude unidadeSaude, UriComponentsBuilder ucBuilder) {
         UnidadeSaude unidadeSaudeAdicionada = unidadeSaudeService.insere(unidadeSaude);
         return new ResponseEntity<UnidadeSaude>(unidadeSaudeAdicionada, HttpStatus.CREATED);
     }
 	
-	@RequestMapping(value="/unidade/busca/{bairro}", method= RequestMethod.GET)
+	@RequestMapping(value = Util.ROTA_CONSULTAR_UNIDADE_SAUDE_POR_BAIRRO, method= RequestMethod.GET)
 	public ResponseEntity<UnidadeSaude> consultarUnidadeSaudePorBairro(@PathVariable("bairro")String bairro){
 		UnidadeSaude unidadeSaudeEncontrada = unidadeSaudeService.getUnidadeSaude(bairro);
 		return new ResponseEntity<UnidadeSaude>(unidadeSaudeEncontrada, HttpStatus.OK);
 	}
 	
-	@RequestMapping(value = "/unidade/{id}", method = RequestMethod.GET)
+	@RequestMapping(value = Util.ROTA_CONSULTAR_UNIDADE_SAUDE, method = RequestMethod.GET)
 	public ResponseEntity<?> consultarUnidadeSaude(@PathVariable("id") long id) {
 
 		try {
@@ -74,7 +75,7 @@ public class UnidadeSaudeController {
 	}
 	
 	
-	@RequestMapping(value = "/especialidade/unidades", method = RequestMethod.GET)
+	@RequestMapping(value = Util.ROTA_CONSULTAR_ESPECIALIDADE_POR_UNIDADE_SAUDE, method = RequestMethod.GET)
     public ResponseEntity<?> consultaEspecialidadeporUnidadeSaude(@RequestBody Long id) {
       Set<Especialidade> especialidades;
 	try {

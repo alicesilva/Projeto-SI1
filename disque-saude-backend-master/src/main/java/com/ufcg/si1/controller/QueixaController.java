@@ -15,12 +15,13 @@ import org.springframework.web.bind.annotation.RestController;
 import com.ufcg.si1.model.Queixa;
 import com.ufcg.si1.service.QueixaService;
 import com.ufcg.si1.util.ObjWrapper;
+import com.ufcg.si1.util.Util;
 
 import exceptions.AcaoNaoPermitidaException;
 import exceptions.IdInexistenteException;
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping(Util.ROTA_API)
 @CrossOrigin
 public class QueixaController {
 
@@ -32,7 +33,7 @@ public class QueixaController {
 
 	}
 
-	@RequestMapping(value = "/queixa/", method = RequestMethod.GET)
+	@RequestMapping(value = Util.ROTA_QUEIXA, method = RequestMethod.GET)
 	public ResponseEntity<List<Queixa>> listAllQueixas() {
 		List<Queixa> queixas = queixaService.findAllQueixas();
 
@@ -43,7 +44,7 @@ public class QueixaController {
 		return new ResponseEntity<List<Queixa>>(queixas, HttpStatus.OK);
 	}
 
-	@RequestMapping(value = "/queixa/", method = RequestMethod.POST)
+	@RequestMapping(value = Util.ROTA_QUEIXA, method = RequestMethod.POST)
 	public ResponseEntity<?> abrirQueixa(@RequestBody Queixa queixa) {
 
 		try {
@@ -55,7 +56,7 @@ public class QueixaController {
 
 	}
 
-	@RequestMapping(value = "/queixa/{id}", method = RequestMethod.GET)
+	@RequestMapping(value = Util.ROTA_CONSULTAR_QUEIXA_POR_ID, method = RequestMethod.GET)
 	public ResponseEntity<?> consultarQueixa(@PathVariable("id") Long id) {
 		try {
 			Queixa queixaEncontrada = queixaService.encontraPorId(id);
@@ -66,8 +67,8 @@ public class QueixaController {
 
 	}
 
-	@RequestMapping(value = "/queixa/{id}", method = RequestMethod.PUT)
-	public ResponseEntity<?> atualizaQueixa(@PathVariable("id") Long id, @RequestBody Queixa queixa) {
+	@RequestMapping(value = Util.ROTA_ATUALIZAR_QUEIXA_POR_ID, method = RequestMethod.PUT)
+	public ResponseEntity<?> atualizarQueixa(@PathVariable("id") Long id, @RequestBody Queixa queixa) {
 		try {
 			queixaService.atualizaQueixa(id, queixa);
 			return new ResponseEntity<>(HttpStatus.OK);
@@ -77,7 +78,7 @@ public class QueixaController {
 
 	}
 
-	@RequestMapping(value = "/queixa/{id}", method = RequestMethod.DELETE)
+	@RequestMapping(value = Util.ROTA_EXCLUIR_QUEIXA_POR_ID, method = RequestMethod.DELETE)
 	public ResponseEntity<?> excluiQueixa(@PathVariable("id") Long id) {
 		try {
 			queixaService.excluiQueixaPorId(id);
@@ -88,7 +89,7 @@ public class QueixaController {
 
 	}
 
-	@RequestMapping(value = "/queixa/fechamento", method = RequestMethod.POST)
+	@RequestMapping(value = Util.ROTA_FECHAR_QUEIXA, method = RequestMethod.POST)
 	public ResponseEntity<?> fecharQueixa(@RequestBody Queixa queixaAFechar) {
 		long id = queixaAFechar.getId();
 		try {
@@ -101,7 +102,7 @@ public class QueixaController {
 
 	}
 
-	@RequestMapping(value = "/geral/situacao", method = RequestMethod.GET)
+	@RequestMapping(value = Util.ROTA_SITUACAO_GERAL_QUEIXAS, method = RequestMethod.GET)
 	public ResponseEntity<?> getSituacaoGeralQueixas() {
 
 		// dependendo da situacao da prefeitura, o criterio de avaliacao muda

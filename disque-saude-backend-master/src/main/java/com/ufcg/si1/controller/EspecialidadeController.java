@@ -12,11 +12,12 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.ufcg.si1.model.Especialidade;
 import com.ufcg.si1.service.EspecialidadeService;
+import com.ufcg.si1.util.Util;
 
 import exceptions.IdInexistenteException;
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping(Util.ROTA_API)
 @CrossOrigin
 public class EspecialidadeController {
 
@@ -27,14 +28,14 @@ public class EspecialidadeController {
 		this.especialidadeService = especialidadeService;
 	}
 
-	@RequestMapping(value = "/especialidade/", method = RequestMethod.POST)
+	@RequestMapping(value = Util.ROTA_ESPECIALIDADE, method = RequestMethod.POST)
 	public ResponseEntity<Especialidade> addEspecialidade(@RequestBody Especialidade esp) {
 		Especialidade especialidadeAdicionada = especialidadeService.addEspecialidade(esp);
 		return new ResponseEntity<Especialidade>(especialidadeAdicionada, HttpStatus.CREATED);
 
 	}
 
-	@RequestMapping(value = "/especialidade/{id}", method = RequestMethod.GET)
+	@RequestMapping(value = Util.ROTA_CONSULTAR_ESPECIALIDADE, method = RequestMethod.GET)
 	public ResponseEntity<?> consultarEspecialidade(@PathVariable("id") Long id) {
 		try {
 			Especialidade especialidadeEncontrada = especialidadeService.getEspecialidade(id);
