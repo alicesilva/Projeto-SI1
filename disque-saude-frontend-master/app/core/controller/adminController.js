@@ -4,4 +4,8 @@ app.controller("adminController", function($scope, $location){
         $location.path("/situacaoGeralQueixas")
     }
 
+    $scope.gerenciarQueixas = function(){
+        $location.path("/queixas")
+    }
+
 });

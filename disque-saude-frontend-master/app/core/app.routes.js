@@ -28,6 +28,9 @@ app.config(function ($routeProvider) {
     }).when("/admin_menu", {
         templateUrl : "view/admin-menu.html",
         controller : "adminController"
+     }).when("/queixas", {
+        templateUrl : "view/queixas.html",
+        controller : "queixaController"
     }).otherwise({
         redirectTo: '/'
     });

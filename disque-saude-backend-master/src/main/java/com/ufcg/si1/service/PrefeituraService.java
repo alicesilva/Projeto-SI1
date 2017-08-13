@@ -56,5 +56,9 @@ public class PrefeituraService {
 		}
 		return count;
 	}
+	
+	public List<Queixa> getQueixas(){
+		return queixaRepository.findAll();
+	}
 
 }

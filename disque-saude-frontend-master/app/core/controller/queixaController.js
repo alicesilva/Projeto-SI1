@@ -28,15 +28,15 @@ app.controller("queixaController", function ($scope,$http, queixaApi, toastr, $l
     var getSituacaoGeralQueixas = function () {
         queixaApi.getSituacaoQueixas()
             .then(function success(response) {
-                console.log(response.data.obj);
+                console.log(response.data);
 
-                if(response.data.obj == 0){
+                if(response.data == "RUIM"){
                     $scope.situacao = {
                         status: "RUIM",
                         color: "label-danger"
                     };
 
-                } else if(response.data.obj == 1){
+                } else if(response.data == "REGULAR"){
 
                     $scope.situacao = {
                         status: "REGULAR",
@@ -64,6 +64,18 @@ app.controller("queixaController", function ($scope,$http, queixaApi, toastr, $l
     }
 
     mostrarMensagem();
+
+
+    $scope.queixas = "";
+    var getQueixas = function(){
+        queixaApi.getQueixas()
+        .then(function success(response){
+            $scope.queixas = response.data;
+            console.log(response.data);
+        })
+    };
+
+    getQueixas();
 });
 
     
