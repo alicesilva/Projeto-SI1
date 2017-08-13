@@ -1,6 +1,4 @@
-package com.ufcg.si1.model;
-
-import exceptions.AcaoNaoPermitidaException;
+package com.ufcg.si1.model.queixa;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -8,9 +6,13 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
+import javax.persistence.Transient;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.ufcg.si1.model.Endereco;
+import com.ufcg.si1.model.Solicitante;
 
 @Entity
-public class Queixa {
+public class Queixa{
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -22,24 +24,29 @@ public class Queixa {
 	private Solicitante solicitante;
 	
 	@OneToOne(cascade=CascadeType.ALL)
-	private LocalizacaoDoProblema localizacaoDoProblema;
-
-	private SituacaoDaQueixa situacao;
-
-	private String comentario = ""; // usado na atualizacao da queixa
+	private Endereco enderecoDoEstabelecimento;
+	
+	@Transient
+	@JsonIgnore
+	private QueixaStatus status;
+	
+	
+	private QueixaStatusEnum statusEnum;
+	
+	private String comentario = "";
 
 	public Queixa(){
 	}
 
-	public Queixa(Long id, String descricao, String situacao, String comentario,
+	public Queixa(Long id, String descricao, String comentario,
                   String nome, String email,
-				  String rua, String uf, String cidade) {
+				  String rua, String uf, String cidade, QueixaStatus status) {
 		this.id = id;
 		this.descricao = descricao;
-		this.situacao = SituacaoDaQueixa.valueOf(situacao);
+		this.status = status;
 		this.comentario = comentario;
 		this.solicitante = new Solicitante(nome, email);
-		this.localizacaoDoProblema = new LocalizacaoDoProblema(rua, uf, cidade);
+		this.enderecoDoEstabelecimento = new Endereco(rua, uf, cidade);
 	}
 
 	public Long getId() {
@@ -58,16 +65,6 @@ public class Queixa {
 		this.descricao = descricao;
 	}
 
-	
-
-	public SituacaoDaQueixa getSituacao() {
-		return situacao;
-	}
-
-	public void setSituacao(SituacaoDaQueixa situacao) {
-		this.situacao = situacao;
-	}
-
 	public String getComentario() {
 		return comentario;
 	}
@@ -84,12 +81,30 @@ public class Queixa {
 		this.solicitante = solicitante;
 	}
 	
-	public LocalizacaoDoProblema getLocalizacaoDoProblema() {
-		return localizacaoDoProblema;
+
+	public Endereco getEnderecoDoEstabelecimento() {
+		return enderecoDoEstabelecimento;
+	}
+	
+	public QueixaStatus getStatus() {
+		return status;
 	}
 
-	public void setLocalizacaoDoProblema(LocalizacaoDoProblema localizacaoDoProblema) {
-		this.localizacaoDoProblema = localizacaoDoProblema;
+	public void setStatus(QueixaStatus status) {
+		this.status = status;
+	}
+	
+	public QueixaStatusEnum getStatusEnum() {
+		if(status instanceof QueixaAberta){
+			statusEnum = QueixaStatusEnum.ABERTA;
+
+		}else if(status instanceof QueixaFechada){
+			statusEnum = QueixaStatusEnum.FECHADA;
+		}else{
+			statusEnum = QueixaStatusEnum.ABERTA;
+		}
+		
+		return statusEnum;
 	}
 
 	@Override

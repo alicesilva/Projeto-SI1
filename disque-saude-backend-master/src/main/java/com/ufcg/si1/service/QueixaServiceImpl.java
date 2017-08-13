@@ -1,15 +1,13 @@
-	package com.ufcg.si1.service;
+package com.ufcg.si1.service;
 
-import com.ufcg.si1.model.Queixa;
-import com.ufcg.si1.model.SituacaoDaQueixa;
+import com.ufcg.si1.model.queixa.Queixa;
+import com.ufcg.si1.model.queixa.QueixaAberta;
 import com.ufcg.si1.repository.QueixaRepository;
-
 import exceptions.AcaoNaoPermitidaException;
 import exceptions.IdInexistenteException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import java.util.Iterator;
-import java.util.List;
 
 @Service
 public class QueixaServiceImpl implements QueixaService {
@@ -20,21 +18,41 @@ public class QueixaServiceImpl implements QueixaService {
 	/*
 	 * situação normal =0 situação extra =1
 	 */
-	private int situacaoAtualPrefeitura = 0;
+	/*
+	private int situacaoAtualPrefeitura = 0;*/
 
 	public QueixaServiceImpl(QueixaRepository queixaRepository) {
 		this.queixaRepository = queixaRepository;
 	}
-
-	public List<Queixa> findAllQueixas() {
-		return queixaRepository.findAll();
+	
+	@Override
+	public Queixa salvarQueixa(Queixa queixa) throws AcaoNaoPermitidaException {
+		if(queixa == null){
+			throw new AcaoNaoPermitidaException("Impossivel registrar queixa");
+			
+		}else{
+			queixa.setStatus(new QueixaAberta());
+			queixaRepository.save(queixa);
+			return queixa;
+		}
 	}
-
-	public void saveQueixa(Queixa queixa) throws AcaoNaoPermitidaException {
-		abrirQueixa(queixa);
-		queixaRepository.save(queixa);
+	
+	public Queixa getQueixaPorId(Long id) throws IdInexistenteException {
+		
+		if(id <0 ){
+			throw new IdInexistenteException("Id inexistente");
+		}
+		
+		Queixa queixaEncontrada = queixaRepository.findOne(id);
+		
+		if (queixaEncontrada == null){
+			throw new IdInexistenteException("Não há nenhuma queixa com o id " + id);
+		}
+		
+		return queixaEncontrada;
 	}
-
+	
+	/*
 	public Queixa atualizaQueixa(Long id, Queixa queixa) throws IdInexistenteException {
 		Queixa queixaAtual = encontraPorId(id);
 		if (queixaAtual == null) {
@@ -134,5 +152,5 @@ public class QueixaServiceImpl implements QueixaService {
 			queixa.setComentario(coment);
 		} else
 			throw new AcaoNaoPermitidaException("Status Inválido");
-	}
+	}*/
 }

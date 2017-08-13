@@ -2,22 +2,20 @@ package com.ufcg.si1.service;
 
 
 import java.util.List;
-import com.ufcg.si1.model.Queixa;
+
+import com.ufcg.si1.model.queixa.Queixa;
 
 import exceptions.AcaoNaoPermitidaException;
 import exceptions.IdInexistenteException;
 
 public interface QueixaService {
-
-	List<Queixa> findAllQueixas();
-
-
-    void saveQueixa(Queixa queixa)  throws AcaoNaoPermitidaException;
+	
+	Queixa salvarQueixa(Queixa queixa)  throws AcaoNaoPermitidaException;
 
 
-	Queixa encontraPorId(Long id) throws IdInexistenteException ;
+	Queixa getQueixaPorId(Long id) throws IdInexistenteException ;
 
-
+/*
 	Queixa atualizaQueixa(Long id, Queixa queixa) throws IdInexistenteException;
 	
 
@@ -31,5 +29,5 @@ public interface QueixaService {
 	Integer getSituacaoGeralQueixas();
 
 //	boolean isUserExist(Queixa user);
-	
+*/	
 }

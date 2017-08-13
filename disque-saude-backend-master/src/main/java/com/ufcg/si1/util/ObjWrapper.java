@@ -2,7 +2,7 @@ package com.ufcg.si1.util;
 
 import java.io.Serializable;
 
-public class ObjWrapper<T> implements Serializable {
+public class ObjWrapper<T> implements Serializable{
 
 
     private T obj;
@@ -16,6 +16,5 @@ public class ObjWrapper<T> implements Serializable {
     public T getObj() {
         return obj;
     }
-
 }
 

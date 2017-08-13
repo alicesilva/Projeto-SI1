@@ -5,7 +5,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
 @Entity
-public class LocalizacaoDoProblema {
+public class Endereco {
 	
 	@Id
 	@GeneratedValue
@@ -29,11 +29,11 @@ public class LocalizacaoDoProblema {
 		this.cidade = cidade;
 	}
 
-	public LocalizacaoDoProblema(){
+	public Endereco(){
 
 	}
 
-	public LocalizacaoDoProblema(String rua, String uf, String cidade) {
+	public Endereco(String rua, String uf, String cidade) {
 		this.rua = rua;
 		this.uf = uf;
 		this.cidade = cidade;

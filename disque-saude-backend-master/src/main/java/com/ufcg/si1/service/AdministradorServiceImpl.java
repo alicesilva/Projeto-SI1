@@ -6,6 +6,8 @@ import org.springframework.stereotype.Service;
 import com.ufcg.si1.model.Administrador;
 import com.ufcg.si1.repository.AdministradorRepository;
 
+import exceptions.AcaoNaoPermitidaException;
+
 @Service
 public class AdministradorServiceImpl implements AdministradorService{
 	
@@ -13,18 +15,21 @@ public class AdministradorServiceImpl implements AdministradorService{
 	AdministradorRepository administradorRepository;
 	
 	@Override
-	public Administrador cadastraAdministrador(Administrador administrador) {
-		
-		if(administrador.getCodigo().equals(Administrador.CODIGO)){
-			return administradorRepository.save(administrador);
-		}else{
-			return null;
+	public Administrador cadastraAdministrador(Administrador administrador) throws AcaoNaoPermitidaException{
+		if(administrador == null){
+			throw new AcaoNaoPermitidaException("Não é possovel cadastrar adm");
 		}
+		
+		if(!administrador.getCodigo().equals(Administrador.CODIGO)){
+			throw new AcaoNaoPermitidaException("Código errado para o administrador");
+		}
+		
+		return administradorRepository.save(administrador);	
 	}
 
 	@Override
-	public Administrador searchUserToEmail(String email) {
-		return administradorRepository.searchUserToEmail(email);
+	public Administrador getAdministradorPorEmail(String email) {
+		return administradorRepository.getAdministradorPorEmail(email);
 	}
 
 }

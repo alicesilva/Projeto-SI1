@@ -2,10 +2,12 @@ package com.ufcg.si1.service;
 
 import com.ufcg.si1.model.Administrador;
 
+import exceptions.AcaoNaoPermitidaException;
+
 public interface AdministradorService {
 
-	Administrador cadastraAdministrador(Administrador administrador);
+	Administrador cadastraAdministrador(Administrador administrador) throws AcaoNaoPermitidaException;
 
-	Administrador searchUserToEmail(String email);
+	Administrador getAdministradorPorEmail(String email);
 
 }

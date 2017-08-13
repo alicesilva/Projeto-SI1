@@ -9,5 +9,5 @@ import com.ufcg.si1.model.Administrador;
 public interface AdministradorRepository extends JpaRepository<Administrador, Long>{
 
 	@Query(value="Select u from Administrador u where u.email=:pemail ")
-	public Administrador searchUserToEmail(@Param("pemail") String email);
+	public Administrador getAdministradorPorEmail(@Param("pemail") String email);
 }
