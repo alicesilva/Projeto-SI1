@@ -1,6 +1,7 @@
 app.config(function ($routeProvider) {
     $routeProvider.when("/",{
-        templateUrl: "view/pesquisa.html"
+        templateUrl: "view/menu-geral.html",
+        controller : "menuController"
     }).when("/queixa/registra", {
         templateUrl: "view/registra-queixa.html",
         controller : "queixaController",

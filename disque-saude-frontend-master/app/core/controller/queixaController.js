@@ -1,19 +1,19 @@
-app.controller("queixaController", function ($scope,$http, queixaApi, toastr, $location, $routeParams) {
+app.controller("queixaController", function ($scope, $http, queixaApi, toastr, $location, $routeParams) {
 
     $scope.registraQueixa = function (queixa) {
-            queixaApi.salvarQueixas(queixa).then(function success(response) {
-                toastr.success("Queixa adicionada com sucesso!");
-                $location.path('/queixacriada/' + response.data.id);
-            }, function error(error) {
-                console.log(error);
-                console.log("Problemas ao tentar adicionar queixa.");
-            });
+        queixaApi.salvarQueixas(queixa).then(function success(response) {
+            toastr.success("Queixa adicionada com sucesso!");
+            $location.path('/queixacriada/' + response.data.id);
+        }, function error(error) {
+            console.log(error);
+            console.log("Problemas ao tentar adicionar queixa.");
+        });
     }
 
     $scope.queixa;
 
     $scope.procuraQueixa = function (id) {
-       queixaApi.getQueixa(id).then(function successCallback(response) {
+        queixaApi.getQueixa(id).then(function successCallback(response) {
             $scope.queixa = response.data;
         }, function errorCallback(error) {
             $scope.queixa = null;
@@ -21,7 +21,7 @@ app.controller("queixaController", function ($scope,$http, queixaApi, toastr, $l
         });
     }
 
-    
+
 
     $scope.situacao = "";
 
@@ -30,13 +30,13 @@ app.controller("queixaController", function ($scope,$http, queixaApi, toastr, $l
             .then(function success(response) {
                 console.log(response.data);
 
-                if(response.data == "RUIM"){
+                if (response.data == "RUIM") {
                     $scope.situacao = {
                         status: "RUIM",
                         color: "label-danger"
                     };
 
-                } else if(response.data == "REGULAR"){
+                } else if (response.data == "REGULAR") {
 
                     $scope.situacao = {
                         status: "REGULAR",
@@ -48,7 +48,7 @@ app.controller("queixaController", function ($scope,$http, queixaApi, toastr, $l
                         status: "BOM",
                         color: "label-success"
                     };
-                    
+
                 }
             }, function failed(error) {
                 console.log("Erro na busca de unidades");
@@ -67,15 +67,24 @@ app.controller("queixaController", function ($scope,$http, queixaApi, toastr, $l
 
 
     $scope.queixas = "";
-    var getQueixas = function(){
+    var getQueixas = function () {
         queixaApi.getQueixas()
-        .then(function success(response){
-            $scope.queixas = response.data;
-            console.log(response.data);
-        })
+            .then(function success(response) {
+                $scope.queixas = response.data;
+                console.log(response.data);
+            })
     };
 
     getQueixas();
+
+    $scope.voltar = function () {
+        $location.path("/");
+
+    }
+
+    $scope.voltarMenuAdm = function () {
+        $location.path("/admin_menu")
+    }
 });
 
-    
+

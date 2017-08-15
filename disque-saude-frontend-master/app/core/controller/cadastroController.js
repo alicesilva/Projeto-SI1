@@ -13,4 +13,10 @@ app.controller("cadastroController", function($scope, cadastroApi, $location){
         
     }
 
+
+    $scope.voltar = function () {
+        $location.path("/");
+
+    }
+
 });
