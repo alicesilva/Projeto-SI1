@@ -85,6 +85,14 @@ app.controller("queixaController", function ($scope, $http, queixaApi, toastr, $
     $scope.voltarMenuAdm = function () {
         $location.path("/admin_menu")
     }
+
+    $scope.addComentario = function(id, comentario){
+       var queixaASerModificada = new Object();
+       queixaASerModificada.id = id;
+       queixaASerModificada.comentario = comentario;
+       queixaApi.addComentario(queixaASerModificada);
+       console.log(comentario);
+    }
 });
 
 

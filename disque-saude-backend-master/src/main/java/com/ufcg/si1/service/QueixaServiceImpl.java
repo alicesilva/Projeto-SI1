@@ -51,6 +51,17 @@ public class QueixaServiceImpl implements QueixaService {
 		
 		return queixaEncontrada;
 	}
+
+	@Override
+	public Queixa addComentarioNaQueixa(Long id, String comentario) {
+		
+		Queixa queixa = queixaRepository.findOne(id);
+		queixa.setComentario(comentario);
+		queixaRepository.save(queixa);
+		
+		return queixa;
+		
+	}
 	
 	/*
 	public Queixa atualizaQueixa(Long id, Queixa queixa) throws IdInexistenteException {

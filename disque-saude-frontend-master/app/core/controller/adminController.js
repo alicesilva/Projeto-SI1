@@ -8,7 +8,6 @@ app.controller("adminController", function($scope, $location){
         $location.path("/queixas")
     }
 
-
     $scope.voltar = function () {
         $location.path("/");
 

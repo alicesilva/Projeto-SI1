@@ -17,6 +17,11 @@
         <td>{{queixa.descricao}}</td>
         <td>{{queixa.statusEnum}}</td>
         <td>{{queixa.comentario}}</td>
+        <td>
+          <input id="comentario" type="text" class="form-control" ng-model = "queixa.comentario">
+          <button ng-click="addComentario(queixa.id, queixa.comentario)"class="btn btn-primary btn-sm">Adicionar Comentário</button>
+        </td>
+        
       </tr>
     </tbody>
   </table>

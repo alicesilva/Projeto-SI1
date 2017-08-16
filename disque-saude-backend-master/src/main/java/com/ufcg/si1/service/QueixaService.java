@@ -15,6 +15,9 @@ public interface QueixaService {
 
 	Queixa getQueixaPorId(Long id) throws IdInexistenteException ;
 
+
+	Queixa addComentarioNaQueixa(Long id, String comentario);
+
 /*
 	Queixa atualizaQueixa(Long id, Queixa queixa) throws IdInexistenteException;
 	
