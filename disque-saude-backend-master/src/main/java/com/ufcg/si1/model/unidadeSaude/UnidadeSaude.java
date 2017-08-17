@@ -1,7 +1,9 @@
-package com.ufcg.si1.model;
+package com.ufcg.si1.model.unidadeSaude;
 
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
+import com.ufcg.si1.model.Especialidade;
+
 import java.util.Set;
 
 import javax.persistence.CascadeType;

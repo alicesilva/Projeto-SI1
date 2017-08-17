@@ -91,7 +91,7 @@ app.controller("queixaController", function ($scope, $http, queixaApi, toastr, $
        queixaASerModificada.id = id;
        queixaASerModificada.comentario = comentario;
        queixaApi.addComentario(queixaASerModificada);
-       console.log(comentario);
+       
     }
 });
 

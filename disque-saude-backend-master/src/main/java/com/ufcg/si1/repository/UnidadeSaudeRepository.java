@@ -4,7 +4,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
-import com.ufcg.si1.model.UnidadeSaude;
+import com.ufcg.si1.model.unidadeSaude.UnidadeSaude;
 
 public interface UnidadeSaudeRepository extends JpaRepository<UnidadeSaude, Long>{
 	

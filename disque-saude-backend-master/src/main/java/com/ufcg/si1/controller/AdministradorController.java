@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.ufcg.si1.model.prefeitura.PrefeituraSituacao;
 import com.ufcg.si1.model.prefeitura.SituacaoGeralQueixas;
 import com.ufcg.si1.model.queixa.Queixa;
 import com.ufcg.si1.service.AdministradorService;
@@ -57,8 +58,14 @@ public class AdministradorController {
 	public void addComentarioNaQueixa(@RequestBody Queixa queixa ){
 		System.out.println("Chamou aqui");
 	}
+
 	
-	
+	// ver com alice
+	@RequestMapping(value = "/situacaoPrefeitura/", method = RequestMethod.PUT)
+	public ResponseEntity<PrefeituraSituacao> modificaSituacaoPrefeitura(@RequestBody PrefeituraSituacao situacaoPrefeitura ){
+		prefeituraService.setSituacaoPrefeitura(situacaoPrefeitura);
+		return new ResponseEntity<>(situacaoPrefeitura, HttpStatus.OK);
+	}
 	
 	
 

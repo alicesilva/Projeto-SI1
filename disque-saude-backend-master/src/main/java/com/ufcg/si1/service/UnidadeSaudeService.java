@@ -3,7 +3,7 @@ package com.ufcg.si1.service;
 import java.util.List;
 import java.util.Set;
 import com.ufcg.si1.model.Especialidade;
-import com.ufcg.si1.model.UnidadeSaude;
+import com.ufcg.si1.model.unidadeSaude.UnidadeSaude;
 
 import exceptions.IdInexistenteException;
 

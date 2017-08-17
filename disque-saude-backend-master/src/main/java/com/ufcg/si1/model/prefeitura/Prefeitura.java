@@ -49,6 +49,7 @@ public class Prefeitura {
 
 	public void setSituacaoPrefeitura(PrefeituraSituacao situacaoPrefeitura) {
 		this.situacaoPrefeitura = situacaoPrefeitura;
+		//mudar situacao do enum tbm
 	}
 
 	public PrefeituraSituacaoEnum getSituacaoPrefeituraEnum() {

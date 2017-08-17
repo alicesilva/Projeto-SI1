@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import com.ufcg.si1.model.Especialidade;
-import com.ufcg.si1.model.UnidadeSaude;
+import com.ufcg.si1.model.unidadeSaude.UnidadeSaude;
 import com.ufcg.si1.service.UnidadeSaudeService;
 import com.ufcg.si1.util.Util;
 import exceptions.IdInexistenteException;

@@ -1,6 +1,8 @@
-package com.ufcg.si1.model;
+package com.ufcg.si1.model.unidadeSaude;
 
 import java.util.Set;
+
+import com.ufcg.si1.model.Especialidade;
 
 public class PostoSaude extends UnidadeSaude{
 
