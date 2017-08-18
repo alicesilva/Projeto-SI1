@@ -1,7 +1,7 @@
 app.service("queixaApi", function($http, config){
 
-    var _salvarQueixas = function(queixa){
-        return $http.post(config.baseUrl + "/queixa/", JSON.stringify(queixa));
+    var _salvarQueixas = function(queixa, tipoQueixa){
+        return $http.post(config.baseUrl + "/queixa/", JSON.stringify(queixa, tipoQueixa));
     }
 
     var _getQueixa = function(id){
