@@ -27,10 +27,10 @@ public class QueixaController {
 
 	
 	@RequestMapping(value = "/queixa/", method = RequestMethod.POST)
-	public ResponseEntity<Queixa> registrarQueixa(@RequestBody Queixa queixa) {
+	public ResponseEntity<Queixa> registrarQueixa(@RequestBody Queixa queixa, @RequestBody String tipoQueixa) {
 
 		try {
-			Queixa queixaRegistrada = queixaService.salvarQueixa(queixa);
+			Queixa queixaRegistrada = queixaService.salvarQueixa(queixa, tipoQueixa);
 			return new ResponseEntity<>(queixaRegistrada, HttpStatus.CREATED);
 		} catch (AcaoNaoPermitidaException e) {
 			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
