@@ -2,12 +2,11 @@ package com.ufcg.si1.service;
 
 import com.ufcg.si1.model.queixa.Queixa;
 import com.ufcg.si1.model.queixa.QueixaAberta;
-import com.ufcg.si1.model.queixa.QueixaAlimentar;
-import com.ufcg.si1.model.queixa.QueixaAnimais;
-import com.ufcg.si1.model.queixa.QueixaGeral;
+import com.ufcg.si1.model.queixa.QueixaStatusEnum;
 import com.ufcg.si1.repository.QueixaRepository;
 import exceptions.AcaoNaoPermitidaException;
 import exceptions.IdInexistenteException;
+import scala.annotation.meta.setter;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -35,12 +34,7 @@ public class QueixaServiceImpl implements QueixaService {
 			throw new AcaoNaoPermitidaException("Impossivel registrar queixa");
 			
 		}else{
-			if (tipoQueixa == "alimentar"){
-				queixa = new QueixaAlimentar(queixa.getId(), queixa.getDescricao(), queixa.getComentario(), queixa.getNome(), queixa.getEmail(), queixa.getRua(), queixa.getUf(), queixa.getCidade(), queixa.getStatus());
-			} else if (tipoQueixa == "geral"){
-				queixa = new QueixaGeral(queixa.getId(), queixa.getDescricao(), queixa.getComentario(), queixa.getNome(), queixa.getEmail(), queixa.getRua(), queixa.getUf(), queixa.getCidade(), queixa.getStatus());
-			} 
-			queixa.setStatus(new QueixaAberta());
+			queixa.abrir();
 			queixaRepository.save(queixa);
 			return queixa;
 		}
@@ -67,6 +61,53 @@ public class QueixaServiceImpl implements QueixaService {
 		Queixa queixa = queixaRepository.findOne(id);
 		queixa.setComentario(comentario);
 		queixaRepository.save(queixa);
+		
+		return queixa;
+		
+	}
+
+	@Override
+	public Queixa modificaStatusDaQueixa(Long id, String status) throws AcaoNaoPermitidaException {
+		Queixa queixaEncontrada = queixaRepository.findOne(id);
+		if(status.equals("Abrir")){
+			queixaEncontrada.abrir();
+		}else if(status.equals("Resolver")){
+			queixaEncontrada.resolver();
+		}else{
+			queixaEncontrada.fechar();
+		}
+		
+		queixaRepository.save(queixaEncontrada);
+		
+		return queixaEncontrada;
+	}
+	
+	/*
+	public Queixa atualizaQueixa(Long id, Queixa queixa) throws IdInexistenteException {
+		Queixa queixaAtual = encontraPorId(id);
+		if (queixaAtual == null) {
+			throw new IdInexistenteException("Não é possível atualizar. Queixa com id " + id + " não encontrada.");
+		}
+		queixaAtual.setDescricao(queixa.getDescricao());
+		queixaAtual.setComentario(queixa.getComentario());
+		queixaRepository.save(queixaAtual);
+		return queixa;
+	}
+
+	public Queixa excluiQueixaPorId(Long id) throws IdInexistenteException {
+		Queixa queixaExcluida = encontraPorId(id);
+		if (queixaExcluida == null) {
+			throw new IdInexistenteException("Unable to delete. Queixa with id " + id + " not found.");
+		}
+		queixaRepository.delete(queixaExcluida);
+		return queixaExcluida;
+	}
+
+	@Override
+	// este metodo nunca eh chamado, mas se precisar estah aqui
+	public int size() {
+		return findAllQueixas().size();
+	}
 
 		return queixa;
 

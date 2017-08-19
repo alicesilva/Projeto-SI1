@@ -1,6 +1,7 @@
 package com.ufcg.si1.model.queixa;
 
 import javax.persistence.CascadeType;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -15,6 +16,8 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.ufcg.si1.model.Solicitante;
+
+import exceptions.AcaoNaoPermitidaException;
 
 @Entity
 @Table(name="queixas")
@@ -37,12 +40,8 @@ public abstract class Queixa {
 	private Solicitante solicitante;
 
 	
-	@Transient
-	@JsonIgnore
+	@OneToOne(cascade=CascadeType.ALL)
 	private QueixaStatus status;
-	
-	
-	private QueixaStatusEnum statusEnum;
 	
 	private String comentario = "";
 	
@@ -146,22 +145,21 @@ public abstract class Queixa {
 	public QueixaStatus getStatus() {
 		return status;
 	}
-
-	public void setStatus(QueixaStatus status) {
-		this.status = status;
+	
+	public void abrir() throws AcaoNaoPermitidaException{
+		if(this.status == null){
+			this.status = new QueixaAberta();
+		}else{
+			this.status = status.abrirQueixa();
+		}
 	}
 	
-	public QueixaStatusEnum getStatusEnum() {
-		if(status instanceof QueixaAberta){
-			statusEnum = QueixaStatusEnum.ABERTA;
-
-		}else if(status instanceof QueixaFechada){
-			statusEnum = QueixaStatusEnum.FECHADA;
-		}else{
-			statusEnum = QueixaStatusEnum.ABERTA;
-		}
-		
-		return statusEnum;
+	public void fechar() throws AcaoNaoPermitidaException{
+		this.status = status.fecharQueixa();
+	}
+	
+	public void resolver() throws AcaoNaoPermitidaException{
+		this.status = status.resolverQueixa();
 	}
 	
 	public abstract String showType();
