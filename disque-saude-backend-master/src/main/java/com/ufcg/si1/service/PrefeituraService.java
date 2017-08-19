@@ -51,7 +51,7 @@ public class PrefeituraService {
 		int count = 0;
 		List<Queixa> queixas = queixaRepository.findAll();
 		for(int i = 0; i < queixas.size(); i ++){
-			if(queixas.get(i).getStatusEnum().equals(QueixaStatusEnum.ABERTA)){
+			if(queixas.get(i).getStatus().tipoQueixa().equals(QueixaStatusEnum.ABERTA)){
 				count ++;
 			}
 		}

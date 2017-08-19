@@ -2,9 +2,11 @@ package com.ufcg.si1.service;
 
 import com.ufcg.si1.model.queixa.Queixa;
 import com.ufcg.si1.model.queixa.QueixaAberta;
+import com.ufcg.si1.model.queixa.QueixaStatusEnum;
 import com.ufcg.si1.repository.QueixaRepository;
 import exceptions.AcaoNaoPermitidaException;
 import exceptions.IdInexistenteException;
+import scala.annotation.meta.setter;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -31,7 +33,7 @@ public class QueixaServiceImpl implements QueixaService {
 			throw new AcaoNaoPermitidaException("Impossivel registrar queixa");
 			
 		}else{
-			queixa.setStatus(new QueixaAberta());
+			queixa.abrir();
 			queixaRepository.save(queixa);
 			return queixa;
 		}
@@ -61,6 +63,22 @@ public class QueixaServiceImpl implements QueixaService {
 		
 		return queixa;
 		
+	}
+
+	@Override
+	public Queixa modificaStatusDaQueixa(Long id, String status) throws AcaoNaoPermitidaException {
+		Queixa queixaEncontrada = queixaRepository.findOne(id);
+		if(status.equals("Abrir")){
+			queixaEncontrada.abrir();
+		}else if(status.equals("Resolver")){
+			queixaEncontrada.resolver();
+		}else{
+			queixaEncontrada.fechar();
+		}
+		
+		queixaRepository.save(queixaEncontrada);
+		
+		return queixaEncontrada;
 	}
 	
 	/*

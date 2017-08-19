@@ -21,6 +21,14 @@
           <input id="comentario" type="text" class="form-control" ng-model = "queixa.comentario">
           <button ng-click="addComentario(queixa.id, queixa.comentario)"class="btn btn-primary btn-sm">Adicionar Comentário</button>
         </td>
+        <td>
+          <select name = "status" ng-model="queixaA.status">
+                <option value = "Abrir">ABRIR</option>
+                <option value = "Fechar">FECHAR</option>
+                <option value = "Resolver">RESOLVER</option>
+        </select>
+        <input type="submit" value="Submit" ng-click = "modificaStatusDaQueixa(queixa.id)">
+        </td>
         
       </tr>
     </tbody>
