@@ -20,11 +20,17 @@ app.service("queixaApi", function($http, config){
         return $http.post(config.baseUrl +"/queixasComentario/", queixa);
     }
 
+    var _modificaStatusDaQueixa = function(id, status){
+        return $http.post(config.baseUrl +"/queixasStatus/" + id, status);
+    }
+
+
     return {
         salvarQueixas : _salvarQueixas,
         getQueixa : _getQueixa,
         getSituacaoQueixas : _getSituacaoQueixas,
         getQueixas : _getQueixas,
-        addComentario : _addComentario
+        addComentario : _addComentario,
+        modificaStatusDaQueixa: _modificaStatusDaQueixa
     }
 });

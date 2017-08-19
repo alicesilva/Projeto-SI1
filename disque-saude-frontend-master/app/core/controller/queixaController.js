@@ -90,9 +90,25 @@ app.controller("queixaController", function ($scope, $http, queixaApi, toastr, $
        var queixaASerModificada = new Object();
        queixaASerModificada.id = id;
        queixaASerModificada.comentario = comentario;
-       queixaApi.addComentario(queixaASerModificada);
-       
+       queixaApi.addComentario(queixaASerModificada)
+            .then(function success(response){
+                console.log(response.data)
+        });
     }
+
+    $scope.queixaA = {
+        status: null
+    };
+    $scope.modificaStatusDaQueixa = function(id){
+        var queixaASerModificada = new Object();
+        queixaASerModificada.id = id;
+         queixaApi.modificaStatusDaQueixa(id, $scope.queixaA.status)
+            .then(function success(response){
+                console.log(response.data)
+        });
+    }
+
+
 });
 
 

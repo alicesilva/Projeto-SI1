@@ -55,8 +55,23 @@ public class AdministradorController {
 	
 	
 	@RequestMapping(value = "/queixasComentario/", method = RequestMethod.POST)
-	public void addComentarioNaQueixa(@RequestBody Queixa queixa ){
-		System.out.println("Chamou aqui");
+	public ResponseEntity<Queixa> addComentarioNaQueixa(@RequestBody Queixa queixa ){
+		Queixa queixaModificada = queixaService.addComentarioNaQueixa(queixa.getId(), queixa.getComentario());
+		
+		return new ResponseEntity<Queixa>(queixaModificada, HttpStatus.OK);
+	}
+	
+	@RequestMapping(value = "/queixasStatus/{id}", method = RequestMethod.POST)
+	public ResponseEntity<Queixa> modificaStatusDaQueixa(@PathVariable("id") Long id, @RequestBody String status){
+		
+		try {
+			Queixa queixaModificada = queixaService.modificaStatusDaQueixa(id, status);
+			return new ResponseEntity<>(queixaModificada, HttpStatus.OK);
+		} catch (AcaoNaoPermitidaException e) {
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		}
+		//System.out.println(id);
+		//System.out.println(status);
 	}
 
 	
