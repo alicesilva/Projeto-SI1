@@ -31,4 +31,8 @@ app.controller("unidadeController", function ($scope, $http, unidadeApi, $locati
 
     }
 
+    $scope.voltarAdm = function () {
+        $location.path("/admin_menu")
+    }
+
 });

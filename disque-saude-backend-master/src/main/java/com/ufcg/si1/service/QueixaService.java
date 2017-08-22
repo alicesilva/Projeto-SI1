@@ -11,7 +11,7 @@ import exceptions.IdInexistenteException;
 
 public interface QueixaService {
 	
-	Queixa salvarQueixa(Queixa queixa)  throws AcaoNaoPermitidaException;
+	Queixa salvarQueixa (Queixa queixa)  throws AcaoNaoPermitidaException;
 
 
 	Queixa getQueixaPorId(Long id) throws IdInexistenteException ;

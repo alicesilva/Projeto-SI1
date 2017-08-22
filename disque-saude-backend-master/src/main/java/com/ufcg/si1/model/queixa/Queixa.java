@@ -6,17 +6,29 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
 import javax.persistence.OneToOne;
-import javax.persistence.Transient;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.ufcg.si1.model.Endereco;
+import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonSubTypes;
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.ufcg.si1.model.Solicitante;
 
 import exceptions.AcaoNaoPermitidaException;
 
 @Entity
-public class Queixa{
-	
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@JsonIgnoreProperties(ignoreUnknown = true) 
+@JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.EXTERNAL_PROPERTY, property = "type")
+@JsonSubTypes({ 
+	@JsonSubTypes.Type(value = QueixaAlimentar.class, name = "ALIMENTAR"),
+	@JsonSubTypes.Type(value = QueixaAnimalPerdido.class, name = "ANIMAL-PERDIDO")
+	})
+public class Queixa {
+
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
@@ -27,9 +39,6 @@ public class Queixa{
 	private Solicitante solicitante;
 	
 	@OneToOne(cascade=CascadeType.ALL)
-	private Endereco enderecoDoEstabelecimento;
-	
-	@OneToOne(cascade=CascadeType.ALL)
 	private QueixaStatus status;
 	
 	private String comentario = "";
@@ -38,16 +47,15 @@ public class Queixa{
 	}
 
 	public Queixa(Long id, String descricao, String comentario,
-                  String nome, String email,
-				  String rua, String uf, String cidade, QueixaStatus status) {
+                  String nome, String email, QueixaStatus status) {
 		this.id = id;
 		this.descricao = descricao;
 		this.status = status;
 		this.comentario = comentario;
 		this.solicitante = new Solicitante(nome, email);
-		this.enderecoDoEstabelecimento = new Endereco(rua, uf, cidade);
+		
 	}
-
+	
 	public Long getId() {
 		return id;
 	}
@@ -80,11 +88,10 @@ public class Queixa{
 		this.solicitante = solicitante;
 	}
 	
-
-	public Endereco getEnderecoDoEstabelecimento() {
-		return enderecoDoEstabelecimento;
+	public void setStatus(QueixaStatus status) {
+		this.status = status;
 	}
-	
+
 	public QueixaStatus getStatus() {
 		return status;
 	}
@@ -126,5 +133,14 @@ public class Queixa{
 			return false;
 		return true;
 	}
+
+	/*@Override
+	public String toString() {
+		return "Queixa [id=" + id + ", descricao=" + descricao + ", solicitante=" + solicitante + ", status=" + status
+				+ ", statusEnum=" + statusEnum + ", comentario=" + comentario + ", rua=" + rua + ", cidade=" + cidade
+				+ ", uf=" + uf + ", nome=" + nome + ", email=" + email + ", type=" + showType() + "]";
+	}*/
+	
+
 
 }

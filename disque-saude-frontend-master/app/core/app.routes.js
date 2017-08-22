@@ -2,9 +2,15 @@ app.config(function ($routeProvider) {
     $routeProvider.when("/",{
         templateUrl: "view/menu-geral.html",
         controller : "menuController"
-    }).when("/queixa/registra", {
+    }).when("/registra/queixa", {
         templateUrl: "view/registra-queixa.html",
-        controller : "queixaController",
+        controller : "queixaController"
+    }).when("/registra/queixa_alimentar", {
+        templateUrl: "view/registra-queixa-alimentar-geral.html",
+        controller : "queixaController"
+    }).when("/registra/queixa_animal_perdido", {
+        templateUrl: "view/registra-queixa-animal.html",
+        controller : "queixaController"
     }).when("/pesquisaqueixa", {
         templateUrl : "view/pesquisa-queixa.html",
         controller: "queixaController"
