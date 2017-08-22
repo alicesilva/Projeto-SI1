@@ -58,6 +58,7 @@ app.controller("queixaController", function ($scope, $http, queixaApi, toastr, $
 
     getSituacaoGeralQueixas();
 
+   
     $scope.respostaQueixaId = "";
     var mostrarMensagem = function () {
         $scope.respostaQueixaId = $routeParams.id;

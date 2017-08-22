@@ -9,11 +9,15 @@ app.service("unidadeApi", function ($http, config) {
 		return $http.get(config.baseUrl + "/unidade/busca/" + bairro);
 	}
 
+	var _adicionaUS = function(unidade) {
+		return $http.post(config.baseUrl + "/unidade/",  JSON.stringify(unidade));
+	}
 
 
 	return {
 		pesquisaMediaPaciente: _pesquisaMediaPaciente,
-		pesquisaUnidSaude: _pesquisaUnidSaude
+		pesquisaUnidSaude: _pesquisaUnidSaude,
+		adicionaUS: _adicionaUS
 	}
 
 });

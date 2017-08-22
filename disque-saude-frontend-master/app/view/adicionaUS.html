@@ -1,0 +1,71 @@
+<div class="container center-block">
+    <div>
+        <form name="complaintForm">
+            <div class="col-md-5 col-md-offset-3">
+                <fieldset>
+                    <legend>Dados da Unidade de Saúde</legend>
+                    <!--Description field-->
+                    <div class="form-group row">
+                        <div class="form-group row">
+                            <label for="inputNMedicos" class="col-sm-2 col-form-label">Nº de Médicos:</label>
+                            <br>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" name="numeroMedicos" id="inputNMedicos" ng-model="unidadeSaude.numeroMedicos"></textarea>
+                                <br>
+                            </div>
+
+                            <div class="form-group row">
+                                <label for="inputNPacientes" class="col-sm-2 col-form-label">Nº de paciêntes por dia:</label>
+                                <br>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control" name="numeroPacientesDia" id="inputNPacientes" ng-model="unidadeSaude.numeroPacientesDia"></textarea>
+                                </div>
+                            </div>
+                            <div class="col-sm-10">
+                                <h5><strong> Tipo de Unidade de Saúde: </strong></h5>
+                                <div class="radio">
+                                    <label><input type="radio" name="optradio">Hospital</label>
+                                </div>
+                                <div class="radio">
+                                    <label><input type="radio" name="optradio">Posto de Saúde</label>
+                                </div>
+
+                            </div>
+                </fieldset>
+                <fieldset>
+                    <legend>Localização da Unidade de Saúde</legend>
+                    <!--Street field-->
+                    <div class="form-group row">
+                        <label for="inputBairro" class="col-sm-2 col-form-label">Bairro:</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" name="bairro" id="inputBairro" ng-model="unidadeSaude.endereco.bairro">
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label for="inputRua" class="col-sm-2 col-form-label">Rua:</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" name="rua" id="inputRua" ng-model="unidadeSaude.endereco.rua">
+                        </div>
+                    </div>
+                    <!--City field-->
+                    <div class="form-group row">
+                        <label for="inputCidade" class="col-sm-2 col-form-label">Cidade:</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" name="cidade" id="inputCidade" ng-model="unidadeSaude.endereco.cidade">
+                        </div>
+                    </div>
+                    <!--UF field-->
+                    <div class="form-group row">
+                        <label for="inputUf" class="col-sm-2 col-form-label">UF:</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" name="uf" id="inputUf" ng-model="unidadeSaude.endereco.uf">
+                        </div>
+                    </div>
+                </fieldset>
+                <button class="btn btn-primary btn-block" ng-click="adicionaUS(unidadeSaude)">Adicionar Unidade de Saúde</button>
+                </div>
+        </form>
+        </div>
+        </div>
+        <button type="button" class="btn btn-default" ng-click="voltar()">Voltar</button>

@@ -13,6 +13,14 @@ app.controller("adminController", function($scope, $location){
 
     }
 
+    $scope.redirecionaPesquisaMedia = function() {
+        $location.path("/pesquisamedia");
+    }
+
+    $scope.redirecionaAdicionarUS = function() {
+        $location.path("/adicionaUS")
+    }
+
 
 
 });
