@@ -29,7 +29,7 @@ public class QueixaServiceImpl implements QueixaService {
 	}
 
 	@Override
-	public Queixa salvarQueixa(Queixa queixa, String tipoQueixa) throws AcaoNaoPermitidaException {
+	public Queixa salvarQueixa(Queixa queixa) throws AcaoNaoPermitidaException {
 		if(queixa == null){
 			throw new AcaoNaoPermitidaException("Impossivel registrar queixa");
 			

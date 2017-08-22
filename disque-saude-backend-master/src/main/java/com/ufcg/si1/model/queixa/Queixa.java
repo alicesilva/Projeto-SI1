@@ -10,9 +10,8 @@ import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
-import javax.persistence.Transient;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.ufcg.si1.model.Solicitante;
@@ -20,14 +19,14 @@ import com.ufcg.si1.model.Solicitante;
 import exceptions.AcaoNaoPermitidaException;
 
 @Entity
-@Table(name="queixas")
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@JsonIgnoreProperties(ignoreUnknown = true) 
 @JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.EXTERNAL_PROPERTY, property = "type")
-@JsonSubTypes({ @JsonSubTypes.Type(value = QueixaAlimentar.class, name = "ALIMENTAR"),
-	@JsonSubTypes.Type(value = QueixaAnimais.class, name = "ANIMAIS"),
-	@JsonSubTypes.Type(value = QueixaGeral.class, name = "GERAL") })
-public abstract class Queixa {
-	
+@JsonSubTypes({ 
+	@JsonSubTypes.Type(value = QueixaAlimentar.class, name = "ALIMENTAR"),
+	@JsonSubTypes.Type(value = QueixaAnimalPerdido.class, name = "ANIMAL-PERDIDO")
+	})
+public class Queixa {
 
 
 	@Id
@@ -38,77 +37,25 @@ public abstract class Queixa {
 	
 	@OneToOne(cascade=CascadeType.ALL)
 	private Solicitante solicitante;
-
 	
 	@OneToOne(cascade=CascadeType.ALL)
 	private QueixaStatus status;
 	
 	private String comentario = "";
-	
-	private String rua;
-	private String cidade;
-	private String uf;
-	private String nome;
-	private String email;
 
 	public Queixa(){
 	}
 
 	public Queixa(Long id, String descricao, String comentario,
-                  String nome, String email,
-				  String rua, String uf, String cidade, QueixaStatus status) {
+                  String nome, String email, QueixaStatus status) {
 		this.id = id;
 		this.descricao = descricao;
 		this.status = status;
 		this.comentario = comentario;
 		this.solicitante = new Solicitante(nome, email);
-		this.rua = rua;
-		this.cidade = cidade;
-		this.uf = uf;
-		this.solicitante = new Solicitante(nome, email);
 		
 	}
-
-	public String getNome() {
-		return nome;
-	}
-
-	public void setNome(String nome) {
-		this.nome = nome;
-	}
-
-	public String getEmail() {
-		return email;
-	}
-
-	public void setEmail(String email) {
-		this.email = email;
-	}
-
-	public String getRua() {
-		return rua;
-	}
-
-	public void setRua(String rua) {
-		this.rua = rua;
-	}
-
-	public String getCidade() {
-		return cidade;
-	}
-
-	public void setCidade(String cidade) {
-		this.cidade = cidade;
-	}
-
-	public String getUf() {
-		return uf;
-	}
-
-	public void setUf(String uf) {
-		this.uf = uf;
-	}
-
+	
 	public Long getId() {
 		return id;
 	}
@@ -141,7 +88,10 @@ public abstract class Queixa {
 		this.solicitante = solicitante;
 	}
 	
-	
+	public void setStatus(QueixaStatus status) {
+		this.status = status;
+	}
+
 	public QueixaStatus getStatus() {
 		return status;
 	}
@@ -161,8 +111,6 @@ public abstract class Queixa {
 	public void resolver() throws AcaoNaoPermitidaException{
 		this.status = status.resolverQueixa();
 	}
-	
-	public abstract String showType();
 
 	@Override
 	public int hashCode() {
@@ -186,12 +134,12 @@ public abstract class Queixa {
 		return true;
 	}
 
-	@Override
+	/*@Override
 	public String toString() {
 		return "Queixa [id=" + id + ", descricao=" + descricao + ", solicitante=" + solicitante + ", status=" + status
 				+ ", statusEnum=" + statusEnum + ", comentario=" + comentario + ", rua=" + rua + ", cidade=" + cidade
 				+ ", uf=" + uf + ", nome=" + nome + ", email=" + email + ", type=" + showType() + "]";
-	}
+	}*/
 	
 
 

@@ -1,10 +1,8 @@
 package com.ufcg.si1.model.queixa;
 
 import javax.persistence.DiscriminatorValue;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
 
+import javax.persistence.Entity;
 import exceptions.AcaoNaoPermitidaException;
 
 @Entity

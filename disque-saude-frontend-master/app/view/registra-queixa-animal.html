@@ -2,22 +2,22 @@
     <div>
          <form name="complaintForm">
             <div class="col-md-5 col-md-offset-3">
-                
                 <fieldset>
                     <legend>Dados da Queixa</legend>
                     <!--Description field-->
                     <div class="form-group row">
-                        <label for="inputDescription" class="col-sm-2 col-form-label">Tipo do animal:</label>
-                        <div class="col-sm-10">
-                            <input type="text" class="form-control" name="tipo" id="inputTipo" ng-model="queixa.tipo">
-                            <br>
-                        </div>
-                        
-
                         <label for="inputDescription" class="col-sm-2 col-form-label">Descrição:</label>
                         <div class="col-sm-10">
                             <textarea class="form-control" name="description" id="inputDescription" ng-model="queixa.descricao"></textarea>
                         </div>
+                    </div>
+                    <legend>Tipo do Animal</legend>
+                    <div class="form-group">
+                        <select class="form-control" ng-model = "queixa.tipoAnimal">
+                            <option value = "Animal Domestico">Animal Doméstico</option>
+                            <option value = "Animal Silvestre">Animal Silvestre</option>
+                            <option value = "Animal Exotico">Animal Exótico</option>
+                        </select>
                     </div>
                 </fieldset>
                 <fieldset>
@@ -36,30 +36,30 @@
                             <input type="email" class="form-control" name="email" id="inputEmail" ng-model="queixa.solicitante.email">
                         </div>
                     </div>
-                    <legend>Endereço do estabelecimento</legend>
+                    <legend>Local do Animal Perdido</legend>
                     <!--Street field-->
                     <div class="form-group row">
                         <label for="inputStreet" class="col-sm-2 col-form-label">Rua:</label>
                         <div class="col-sm-10">
-                            <input type="text" class="form-control" name="street" id="inputStreet" ng-model="queixa.enderecoDoEstabelecimento.rua">
+                            <input type="text" class="form-control" name="street" id="inputStreet" ng-model="queixa.localDoAnimalPerdido.rua">
                         </div>
                     </div>
                     <!--City field-->
                     <div class="form-group row">
                         <label for="inputCity" class="col-sm-2 col-form-label">Cidade:</label>
                         <div class="col-sm-10">
-                            <input type="text" class="form-control" name="city" id="inputCity" ng-model="queixa.enderecoDoEstabelecimento.cidade">
+                            <input type="text" class="form-control" name="city" id="inputCity" ng-model="queixa.localDoAnimalPerdido.cidade">
                         </div>
                     </div>
                     <!--UF field-->
                     <div class="form-group row">
                         <label for="inputUf" class="col-sm-2 col-form-label">UF:</label>
                         <div class="col-sm-10">
-                            <input type="text" class="form-control" name="uf" id="inputUf" ng-model="queixa.enderecoDoEstabelecimento.uf">
+                            <input type="text" class="form-control" name="uf" id="inputUf" ng-model="queixa.localDoAnimalPerdido.uf">
                         </div>
                     </div>
                 </fieldset>
-                <button class="btn btn-primary btn-block" ng-click="registraQueixa(queixa, 'alimentar')">Adicionar Queixa</button>
+                <button class="btn btn-primary btn-block" ng-click="registraQueixa(queixa, 'ANIMAL-PERDIDO')">Adicionar Queixa</button>
             </div>
         </form>
     </div>
