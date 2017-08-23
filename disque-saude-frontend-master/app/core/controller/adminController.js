@@ -1,4 +1,4 @@
-app.controller("adminController", function($scope, $location){
+app.controller("adminController", function($scope, $location, adminApi){
 
     $scope.getSituacaoGeralQueixas = function(){
         $location.path("/situacaoGeralQueixas")
@@ -21,6 +21,16 @@ app.controller("adminController", function($scope, $location){
         $location.path("/adicionaUS")
     }
 
-
+    $scope.situacaoPrefeitura;
+    $scope.alteraSituacaoPrefeitura = function(situacaoPrefeitura) {
+        console.log(situacaoPrefeitura);
+        adminApi.alterarSituacaoPrefeitura(situacaoPrefeitura).then(function success(response) {
+            console.log("Alteracao realizada com sucesso")
+        }, function error(error) {
+                console.log(error);
+                console.log("Erro ao alterar situacao da prefeitura");
+                
+        });
+    }
 
 });

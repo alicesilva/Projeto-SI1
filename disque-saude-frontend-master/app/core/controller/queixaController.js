@@ -1,7 +1,8 @@
 app.controller("queixaController", function ($scope, $http, queixaApi, toastr, $location, $routeParams) {
 
-    $scope.registraQueixa = function (queixa, tipoQueixa) {
-        queixaApi.salvarQueixas(queixa, tipoQueixa).then(function success(response) {
+    $scope.registraQueixa = function (queixa, tipo) {
+        queixa.type = tipo;
+        queixaApi.salvarQueixas(queixa).then(function success(response) {
             toastr.success("Queixa adicionada com sucesso!");
             $location.path('/queixacriada/' + response.data.id);
         }, function error(error) {
@@ -58,7 +59,6 @@ app.controller("queixaController", function ($scope, $http, queixaApi, toastr, $
 
     getSituacaoGeralQueixas();
 
-   
     $scope.respostaQueixaId = "";
     var mostrarMensagem = function () {
         $scope.respostaQueixaId = $routeParams.id;
@@ -109,7 +109,16 @@ app.controller("queixaController", function ($scope, $http, queixaApi, toastr, $
         });
     }
 
+    $scope.registraQueixaA = function(){
+        if($scope.tipo == "ALIMENTAR"){
+            $location.path("/registra/queixa_alimentar");
+        }else if($scope.tipo == "ANIMAL-PERDIDO"){
+            $location.path("/registra/queixa_animal_perdido");
+        }
+        
+        console.log($scope.tipo);
+    }
+
 
 });
-
 

@@ -22,15 +22,16 @@
                                 </div>
                             </div>
                             <div class="col-sm-10">
-                                <h5><strong> Tipo de Unidade de Saúde: </strong></h5>
+                                <h5><strong> Tipo da Unidade de Saúde: </strong></h5>
                                 <div class="radio">
-                                    <label><input type="radio" name="optradio">Hospital</label>
+                                    <label><input type="radio" name="hospital" value="hospital" ng-model="unidadeSaude.type">Hospital</label>
                                 </div>
                                 <div class="radio">
-                                    <label><input type="radio" name="optradio">Posto de Saúde</label>
+                                    <label><input type="radio" name="postoSaude" value="postoSaude" ng-model="unidadeSaude.type">Posto de Saúde</label>
                                 </div>
-
                             </div>
+
+                            
                 </fieldset>
                 <fieldset>
                     <legend>Localização da Unidade de Saúde</legend>

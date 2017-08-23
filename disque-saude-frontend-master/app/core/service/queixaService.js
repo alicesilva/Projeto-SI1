@@ -1,7 +1,7 @@
 app.service("queixaApi", function($http, config){
 
-    var _salvarQueixas = function(queixa, tipoQueixa){
-        return $http.post(config.baseUrl + "/queixa/", JSON.stringify(queixa, tipoQueixa));
+    var _salvarQueixas = function(queixa){
+        return $http.post(config.baseUrl + "/queixa/", queixa);
     }
 
     var _getQueixa = function(id){
@@ -20,11 +20,9 @@ app.service("queixaApi", function($http, config){
         return $http.post(config.baseUrl +"/queixasComentario/", queixa);
     }
 
-
     var _modificaStatusDaQueixa = function(id, status){
         return $http.post(config.baseUrl +"/queixasStatus/" + id, status);
     }
-
 
 
     return {
@@ -34,6 +32,5 @@ app.service("queixaApi", function($http, config){
         getQueixas : _getQueixas,
         addComentario : _addComentario,
         modificaStatusDaQueixa: _modificaStatusDaQueixa
-
     }
 });

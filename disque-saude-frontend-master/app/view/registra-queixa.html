@@ -1,0 +1,13 @@
+<div class="container">
+  <h2>Selecione o tipo de queixa a ser registrada:</h2>
+  <form>
+    <div class="form-group">
+      <select class="form-control" name = "tipo" ng-model="tipo">
+        <option selected></option>
+        <option value = "ALIMENTAR">Alimentar</option>
+        <option value = "ANIMAL-PERDIDO">Animal Perdido</option>
+      </select>
+      <button type="button" class="btn btn-default"  ng-click = "registraQueixaA()">Submit</button>
+    </div>
+  </form>
+</div>

@@ -42,12 +42,12 @@ app.controller("unidadeController", function ($scope, $http, unidadeApi, $locati
             $scope.unidadesAdicionadas.push(response.data);
             console.log("Foi adicionada uma unidade de Saúde");
         }, function failed(error) {
+            console.log(unidadeSaude.type);
+            console.log(unidadeSaude.numeroMedicos);
             console.log(unidadeSaude.endereco.bairro);
             console.log("Erro ao adicionar unidade de saúde");
             console.log(error.data.errorMessage)
         });
     }
-
-
 
 });

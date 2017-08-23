@@ -24,14 +24,15 @@
 
             </li>
             <li class="list-group-item librePanelListGroupItem">
-                <div class="dropdown">
-                    <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Modifica situação da Prefeitura
-  <span class="caret"></span></button>
-                    <ul class="dropdown-menu">
-                        <li><a href="" >Normal</a></li>
-                        <li><a href="">Extra</a></li>
-                        <li><a href="">Caos</a></li>
-                    </ul>
+                <h5>Alterar situação da prefeitura: </h5>
+                <div class="form-group">
+                    <select class="form-control" name = "situacaoPrefeitura" ng-model="situacaoPrefeitura">
+        <option selected></option>
+        <option value = "EXTRA">Extra</option>
+        <option value = "NORMAL">Normal</option>
+        <option value = "CAOS">Caos</option>
+      </select>
+                    <button type="button" class="btn btn-default" ng-click="alteraSituacaoPrefeitura(situacaoPrefeitura)">Alterar</button>
                 </div>
 
             </li>
@@ -49,7 +50,7 @@
                     </a>
             </li>
 
-        
+
         </ul>
     </div>
 </div>
