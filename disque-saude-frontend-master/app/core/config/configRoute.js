@@ -1,3 +1,3 @@
 app.value("config", {
-    baseUrl : "http://localhost:5000/SpringBootRestApi/api"
+    baseUrl : "https://localhost:5001/SpringBootRestApi/api"
 })

@@ -1,6 +1,11 @@
 package com.ufcg.si1.model.prefeitura;
 
-public class PrefeituraNormal implements PrefeituraSituacao{
+import javax.persistence.DiscriminatorValue;
+import javax.persistence.Entity;
+
+@Entity
+@DiscriminatorValue(value = "normal")
+public class PrefeituraNormal extends PrefeituraSituacao{
 	
 	public static final double VINTE_PORCENTO = 0.2;
 	public static final double DEZ_PORCENTO = 0.1;

@@ -42,8 +42,8 @@ public class EspecialidadeServiceImpl implements EspecialidadeService {
     }
 
     @Override
-    public Especialidade addEspecialidade(Especialidade esp){
-    	return especialidadeRepository.save(esp);
+    public Especialidade addEspecialidade(Especialidade especialidade){
+    	return especialidadeRepository.save(especialidade);
     }
 
     @Override

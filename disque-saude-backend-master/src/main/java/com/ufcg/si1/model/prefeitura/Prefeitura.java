@@ -1,8 +1,10 @@
 package com.ufcg.si1.model.prefeitura;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 import javax.persistence.Transient;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -13,11 +15,8 @@ public class Prefeitura {
 	@GeneratedValue
 	private Long id;
 	
-	@Transient
-	@JsonIgnore
+	@OneToOne(cascade = CascadeType.ALL)
 	private PrefeituraSituacao situacaoPrefeitura;
-	
-	private PrefeituraSituacaoEnum situacaoPrefeituraEnum;
 	
 	public Prefeitura() {
 	}
@@ -49,23 +48,5 @@ public class Prefeitura {
 
 	public void setSituacaoPrefeitura(PrefeituraSituacao situacaoPrefeitura) {
 		this.situacaoPrefeitura = situacaoPrefeitura;
-		//mudar situacao do enum tbm
 	}
-
-	public PrefeituraSituacaoEnum getSituacaoPrefeituraEnum() {
-		if(situacaoPrefeitura instanceof PrefeituraNormal){
-			situacaoPrefeituraEnum = PrefeituraSituacaoEnum.NORMAL;
-		}else{
-			situacaoPrefeituraEnum = PrefeituraSituacaoEnum.EXTRA;
-		}
-		
-		return situacaoPrefeituraEnum;
-	}
-
-	public void setSituacaoPrefeituraEnum(PrefeituraSituacaoEnum situacaoPrefeituraEnum) {
-		this.situacaoPrefeituraEnum = situacaoPrefeituraEnum;
-	}
-	
-	
-
 }

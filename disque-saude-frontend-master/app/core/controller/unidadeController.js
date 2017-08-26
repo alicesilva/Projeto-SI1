@@ -31,8 +31,24 @@ app.controller("unidadeController", function ($scope, $http, unidadeApi, $locati
 
     }
 
+     $scope.adicionaUnidadeDeSaude = function(unidade){
+        unidadeApi.adicionaUnidadeDeSaude(unidade).then(function success(response){
+            console.log(response.data)
+        },function error(error){
+
+        })
+    }
+
     $scope.voltarAdm = function () {
         $location.path("/admin_menu")
+    }
+
+    $scope.taxa
+
+    $scope.mediaMedicoPacienteEmUmaUnidade = function(unidadeBairro){
+        unidadeApi.getMediaMedicoPaciente(unidadeBairro).then(function success(response){
+            $scope.taxa = response.data;
+        })
     }
 
 });
