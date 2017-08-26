@@ -38,6 +38,15 @@ app.config(function ($routeProvider) {
      }).when("/queixas", {
         templateUrl : "view/queixas.html",
         controller : "queixaController"
+    }).when("/us", {
+        templateUrl : "view/add-us.html",
+        controller : "unidadeController"
+    }).when("/media-medico-paciente", {
+        templateUrl : "view/media-medico-paciente.html",
+        controller : "unidadeController"
+    }).when("/add-especialidade", {
+        templateUrl : "view/add-especialidade.html",
+        controller : "especialidadeController"
     }).otherwise({
         redirectTo: '/'
     });

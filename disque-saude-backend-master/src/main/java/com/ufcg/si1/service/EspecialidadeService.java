@@ -14,7 +14,7 @@ public interface EspecialidadeService {
 
     int size();
 
-    Especialidade addEspecialidade(Especialidade esp);
+    Especialidade addEspecialidade(Especialidade especialidade);
     
     boolean existe(Long id);
 }

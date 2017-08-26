@@ -20,7 +20,6 @@ import exceptions.AcaoNaoPermitidaException;
 
 @Entity
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-@JsonIgnoreProperties(ignoreUnknown = true) 
 @JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.EXTERNAL_PROPERTY, property = "type")
 @JsonSubTypes({ 
 	@JsonSubTypes.Type(value = QueixaAlimentar.class, name = "ALIMENTAR"),

@@ -22,4 +22,8 @@ public interface UnidadeSaudeService {
 	void adicionarEspecialidade(Especialidade esp, Long id)  throws IdInexistenteException;
 
 	UnidadeSaude getUnidadeSaude(String bairro);
+
+	UnidadeSaude adicionaUnidadeSaude(UnidadeSaude unidadeSaude);
+
+	float getMediaMedicoPaciente(String bairro);
 }

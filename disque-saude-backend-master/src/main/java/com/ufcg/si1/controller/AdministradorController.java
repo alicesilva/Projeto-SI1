@@ -13,13 +13,17 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.ufcg.si1.model.Especialidade;
+import com.ufcg.si1.model.prefeitura.Prefeitura;
 import com.ufcg.si1.model.prefeitura.PrefeituraSituacao;
 import com.ufcg.si1.model.prefeitura.SituacaoGeralQueixas;
 import com.ufcg.si1.model.queixa.Queixa;
+import com.ufcg.si1.model.unidadeSaude.UnidadeSaude;
 import com.ufcg.si1.service.AdministradorService;
+import com.ufcg.si1.service.EspecialidadeService;
 import com.ufcg.si1.service.PrefeituraService;
 import com.ufcg.si1.service.QueixaService;
-
+import com.ufcg.si1.service.UnidadeSaudeService;
 
 import exceptions.AcaoNaoPermitidaException;
 
@@ -35,6 +39,12 @@ public class AdministradorController {
 	
 	@Autowired
 	QueixaService queixaService;
+	
+	@Autowired
+	UnidadeSaudeService unidadeSaudeService;
+	
+	@Autowired
+	EspecialidadeService especialidadeService;
 	
 	@RequestMapping(value = "/geral/situacao", method = RequestMethod.GET)
 	public ResponseEntity<SituacaoGeralQueixas> getSituacaoGeralQueixas() {
@@ -73,16 +83,37 @@ public class AdministradorController {
 		//System.out.println(id);
 		//System.out.println(status);
 	}
-
 	
-	// ver com alice
-	@RequestMapping(value = "/situacaoPrefeitura/", method = RequestMethod.PUT)
-	public ResponseEntity<PrefeituraSituacao> modificaSituacaoPrefeitura(@RequestBody PrefeituraSituacao situacaoPrefeitura ){
-		prefeituraService.setSituacaoPrefeitura(situacaoPrefeitura);
-		return new ResponseEntity<>(situacaoPrefeitura, HttpStatus.OK);
+	
+	@RequestMapping(value = "/modifica-status/", method = RequestMethod.POST)
+	public ResponseEntity<Prefeitura> modificaSituacaoPrefeitura(@RequestBody String situacao){
+		Prefeitura prefeituraModificada = prefeituraService.modificaStatus(situacao);
+		return new ResponseEntity<Prefeitura>(prefeituraModificada, HttpStatus.ACCEPTED);
+	}
+	
+	@RequestMapping(value = "/unidade/", method = RequestMethod.POST)
+	public ResponseEntity<UnidadeSaude> adicionaUnidadeDeSaude(@RequestBody UnidadeSaude unidadeSaude){
+		UnidadeSaude unidadeSaudeAdicionada = unidadeSaudeService.adicionaUnidadeSaude(unidadeSaude);
+		return new ResponseEntity<UnidadeSaude>(unidadeSaudeAdicionada, HttpStatus.CREATED);
+	}
+	
+	@RequestMapping(value = "/unidade/{bairro}", method = RequestMethod.GET)
+	public ResponseEntity<Float> getMediaMedicoPaciente(@PathVariable("bairro") String bairro){
+		Float taxa = unidadeSaudeService.getMediaMedicoPaciente(bairro);
+		return new ResponseEntity<Float>(taxa, HttpStatus.OK);
+		
+	}
+	
+	@RequestMapping(value = "/unidade/", method = RequestMethod.GET)
+	public ResponseEntity<List<UnidadeSaude>> getUnidadesDeSaude(){
+		List<UnidadeSaude> unidadesSaude = unidadeSaudeService.getAllUnidadesSaude();
+		return new ResponseEntity<List<UnidadeSaude>>(unidadesSaude, HttpStatus.OK);
 	}
 	
 	
-
-
+	@RequestMapping(value = "/especialidade/", method = RequestMethod.POST)
+	public ResponseEntity<Especialidade> addEspecialidade(@RequestBody Especialidade especialidade){
+		Especialidade especialidadeAdicionada = especialidadeService.addEspecialidade(especialidade);
+		return new ResponseEntity<Especialidade>(especialidadeAdicionada, HttpStatus.CREATED);
+	}
 }

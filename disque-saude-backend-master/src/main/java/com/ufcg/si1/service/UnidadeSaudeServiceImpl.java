@@ -67,4 +67,16 @@ public class UnidadeSaudeServiceImpl implements UnidadeSaudeService {
 	public UnidadeSaude getUnidadeSaude(String bairro) {
 		return unidadeSaudeRepository.searchUnidadeSaudeToBairro(bairro);
 	}
+
+	@Override
+	public UnidadeSaude adicionaUnidadeSaude(UnidadeSaude unidadeSaude) {
+		return unidadeSaudeRepository.save(unidadeSaude);
+	}
+
+	@Override
+	public float getMediaMedicoPaciente(String bairro) {
+		UnidadeSaude unidadeSaudeEncontrada = getUnidadeSaude(bairro);
+		float taxa = unidadeSaudeEncontrada.getNumMedicos()/unidadeSaudeEncontrada.getNumPacientes();
+		return taxa;
+	}
 }

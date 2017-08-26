@@ -27,7 +27,7 @@ public class QueixaController {
 	}
 
 	
-	@RequestMapping(value = "/queixa/", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value = "/queixa/", method = RequestMethod.POST)
 	public ResponseEntity<Queixa> registrarQueixa(@RequestBody Queixa queixa) {
 
 		try {
