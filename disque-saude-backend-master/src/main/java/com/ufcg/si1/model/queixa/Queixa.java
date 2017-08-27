@@ -1,7 +1,6 @@
 package com.ufcg.si1.model.queixa;
 
 import javax.persistence.CascadeType;
-
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -9,9 +8,7 @@ import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.OneToOne;
-import javax.persistence.Table;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.ufcg.si1.model.Solicitante;
@@ -133,12 +130,7 @@ public class Queixa {
 		return true;
 	}
 
-	/*@Override
-	public String toString() {
-		return "Queixa [id=" + id + ", descricao=" + descricao + ", solicitante=" + solicitante + ", status=" + status
-				+ ", statusEnum=" + statusEnum + ", comentario=" + comentario + ", rua=" + rua + ", cidade=" + cidade
-				+ ", uf=" + uf + ", nome=" + nome + ", email=" + email + ", type=" + showType() + "]";
-	}*/
+
 	
 
 

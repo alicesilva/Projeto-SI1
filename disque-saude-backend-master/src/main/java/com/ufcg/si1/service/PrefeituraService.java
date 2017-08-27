@@ -11,8 +11,6 @@ import com.ufcg.si1.model.prefeitura.Prefeitura;
 import com.ufcg.si1.model.prefeitura.PrefeituraCaos;
 import com.ufcg.si1.model.prefeitura.PrefeituraExtra;
 import com.ufcg.si1.model.prefeitura.PrefeituraNormal;
-import com.ufcg.si1.model.prefeitura.PrefeituraSituacao;
-import com.ufcg.si1.model.prefeitura.PrefeituraSituacaoEnum;
 import com.ufcg.si1.model.prefeitura.SituacaoGeralQueixas;
 import com.ufcg.si1.model.queixa.Queixa;
 import com.ufcg.si1.model.queixa.QueixaStatusEnum;

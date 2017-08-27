@@ -1,5 +1,6 @@
 app.controller("queixaController", function ($scope, $http, queixaApi, toastr, $location, $routeParams) {
 
+    $scope.queixa;
     $scope.registraQueixa = function (queixa, tipo) {
         queixa.type = tipo;
         queixaApi.salvarQueixas(queixa).then(function success(response) {
@@ -10,8 +11,7 @@ app.controller("queixaController", function ($scope, $http, queixaApi, toastr, $
             console.log("Problemas ao tentar adicionar queixa.");
         });
     }
-
-    $scope.queixa;
+    
 
     $scope.procuraQueixa = function (id) {
         queixaApi.getQueixa(id).then(function successCallback(response) {

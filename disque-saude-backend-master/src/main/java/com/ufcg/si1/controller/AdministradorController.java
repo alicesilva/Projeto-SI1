@@ -2,7 +2,6 @@ package com.ufcg.si1.controller;
 
 import java.util.List;
 
-import org.jboss.logging.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,7 +14,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.ufcg.si1.model.Especialidade;
 import com.ufcg.si1.model.prefeitura.Prefeitura;
-import com.ufcg.si1.model.prefeitura.PrefeituraSituacao;
 import com.ufcg.si1.model.prefeitura.SituacaoGeralQueixas;
 import com.ufcg.si1.model.queixa.Queixa;
 import com.ufcg.si1.model.unidadeSaude.UnidadeSaude;
@@ -80,8 +78,7 @@ public class AdministradorController {
 		} catch (AcaoNaoPermitidaException e) {
 			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		}
-		//System.out.println(id);
-		//System.out.println(status);
+	
 	}
 	
 	

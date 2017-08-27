@@ -78,33 +78,6 @@ public class UnidadeSaudeController {
 		return new ResponseEntity<>(e, HttpStatus.NOT_FOUND);
 	}
       
-    }
-	
-	
-	/*@RequestMapping(value = "/geral/medicos/{id}", method = RequestMethod.GET)
-    public ResponseEntity<?> calcularMediaMedicoPacienteDia(@PathVariable("id") long id) {
-		try {
-			Object unidade = unidadeSaudeService.encontraPorId(id);
-			if(unidade == null){
-	            return new ResponseEntity<ObjWrapper<Double>>(HttpStatus.NOT_FOUND);
-	        }
-
-	        double c = 0.0;
-	        if (unidade instanceof PostoSaude)
-	            c = ((PostoSaude) unidade).getAtendentes()
-	                    / ((PostoSaude) unidade).taxaDiaria();
-	        else if (unidade instanceof Hospital){
-	            c = ((Hospital) unidade).getNumeroMedicos()
-	                    / ((Hospital) unidade).getNumeroPacientesDia();
-	        }
-	        return new ResponseEntity<ObjWrapper<Double>>(new ObjWrapper<Double>(new Double(c)), HttpStatus.OK);
-		} catch (IdInexistenteException e) {
-			return new ResponseEntity<>(e, HttpStatus.NOT_FOUND);
-		}*/
-        
-
-        
-    //}
-	
+    }	
 	
 }

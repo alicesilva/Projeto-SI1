@@ -18,9 +18,6 @@ public class Util {
 	private static final String ESPECIALIDADE = "especialidade";
 	
 	
-	
-	
-	
 	public static final String ROTA_API = RAIZ + API;
 
 	public static final String ROTA_QUEIXA = RAIZ + QUEIXA + RAIZ;
