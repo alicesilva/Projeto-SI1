@@ -1,24 +1,22 @@
-app.controller("loginController", function($scope, loginApi, $location, $rootScope){
-
-    $rootScope.logado = false;
+app.controller("loginController", function($scope, loginService, $location, toastr){
 
     $scope.login = function(administrador){
-        loginApi.login(administrador).then(function success(response) {
+        loginService.login(administrador).then(function success(response) {
                 localStorage.setItem("userToken", response.data.token);
-                console.log("Login reaizado com sucesso")
-                $location.path("/admin_menu");
-                $rootScope.logado = true;
+                toastr.success("Login realizado com sucesso")
+                $location.path("/menu_adm");
             }, function error(error) {
                 console.log(error);
-                console.log("Erro ao realizar login");
-                $rootScope.logado = false;
+                toast.error("Erro ao realizar login!");
             });
-        
     }
 
     $scope.voltar = function () {
         $location.path("/");
+    }
 
+    $scope.goCadastro = function(){
+         $location.path("/cadastro");
     }
     
 });

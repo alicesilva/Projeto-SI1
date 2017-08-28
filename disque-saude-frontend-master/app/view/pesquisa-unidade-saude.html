@@ -8,7 +8,7 @@
             </div>
             <div class="form-group">
                 <div class="col-lg-2 col-lg-offset-5 col-md-3 col-md-offset-5 col-sm-3 col-sm-offset-5 col-xs-3 col-xs-offset-5">
-                    <button class="btn btn-primary btn-lg" ng-click="procuraUS(bairro)"><i class="fa fa-search"></i> Pesquisar</button>
+                    <button class="btn btn-primary btn-lg" ng-click="pesquisaUnidadeSaude(bairro)"><i class="fa fa-search"></i> Pesquisar</button>
                 </div>
             </div>
         </form>
@@ -18,13 +18,13 @@
     <div class="row-fluid">
         <div class="col-lg-12">
             <ul class="list-group">
-                <div class="list-group-item row" ng-repeat="unidade in unidades">
+                <div class="list-group-item row">
                     <div class="col-lg-12">
-                        <h2 class="text-info">Unidade do Bairro:</h2>
+                        <h2 class="text-info">Unidade do Bairro:{{unidade.endereco.bairro}}</h2>
                         <p>Código: {{unidade.id}}</p>
-                        <p>Tipo: {{unidade.tipo}}</p>
-                        <p>Número de medicos: {{unidade.numeroMedicos}}</p>
-                        <p>Número de pacientes por dia: {{unidade.numeroPacientesDia}}</p>
+                        <p>Tipo: {{unidade.type}}</p>
+                        <p>Número de medicos: {{unidade.numMedicos}}</p>
+                        <p>Número de pacientes por dia: {{unidade.numPacientes}}</p>
                         <p>Especialidades da unidade de saúde:
                             <span class="badge badge-default" ng-repeat="esp in unidade.especialidades">
                                 <b>{{esp.descricao}}</b>

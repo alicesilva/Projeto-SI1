@@ -4,7 +4,7 @@ import java.util.Set;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 
-import com.ufcg.si1.model.Especialidade;
+import com.ufcg.si1.model.especialidade.Especialidade;
 @Entity
 @DiscriminatorValue(value = "hospital")
 public class HospitalAdapter extends UnidadeSaude {

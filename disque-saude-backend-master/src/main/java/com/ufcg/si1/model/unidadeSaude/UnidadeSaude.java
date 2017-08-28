@@ -12,7 +12,7 @@ import javax.persistence.ManyToMany;
 import javax.persistence.OneToOne;
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
-import com.ufcg.si1.model.Especialidade;
+import com.ufcg.si1.model.especialidade.Especialidade;
 
 @Entity
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)

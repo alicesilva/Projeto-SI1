@@ -1,6 +1,6 @@
-app.service("queixaApi", function($http, config){
+app.service("queixaService", function($http, config){
 
-    var _salvarQueixas = function(queixa){
+    var _registraQueixa = function(queixa){
         return $http.post(config.baseUrl + "/queixa/", queixa);
     }
 
@@ -9,28 +9,28 @@ app.service("queixaApi", function($http, config){
     }
 
     var _getSituacaoQueixas = function() {
-        return $http.get(config.baseUrl +"/geral/situacao");
+        return $http.get(config.baseUrl +"/queixa/situacao");
     }
 
     var _getQueixas = function() {
         return $http.get(config.baseUrl +"/queixas/");
     }
 
-    var _addComentario = function(queixa){
-        return $http.post(config.baseUrl +"/queixasComentario/", queixa);
+    var _addComentario = function(id, comentario){
+        return $http.post(config.baseUrl +"/queixa/comentario/" + id, comentario);
     }
 
-    var _modificaStatusDaQueixa = function(id, status){
-        return $http.post(config.baseUrl +"/queixasStatus/" + id, status);
+    var _modificaStatus = function(id, status){
+        return $http.post(config.baseUrl +"/queixa/status/" + id, status);
     }
 
 
     return {
-        salvarQueixas : _salvarQueixas,
+        registraQueixa : _registraQueixa,
         getQueixa : _getQueixa,
         getSituacaoQueixas : _getSituacaoQueixas,
         getQueixas : _getQueixas,
         addComentario : _addComentario,
-        modificaStatusDaQueixa: _modificaStatusDaQueixa
+        modificaStatus: _modificaStatus
     }
 });

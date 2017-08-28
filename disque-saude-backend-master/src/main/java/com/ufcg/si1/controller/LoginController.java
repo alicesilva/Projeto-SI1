@@ -1,42 +1,44 @@
 package com.ufcg.si1.controller;
 
 import javax.servlet.ServletException;
-
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
-import com.ufcg.si1.model.Administrador;
+
+import com.ufcg.si1.model.adm.Administrador;
 import com.ufcg.si1.service.AdministradorService;
-import com.ufcg.si1.util.Util;
+
 
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 
 @RestController
 @CrossOrigin
+@RequestMapping(value = "/login/")
 public class LoginController {
 	
 	@Autowired
 	AdministradorService admService;
 	
-	@RequestMapping(value = "/login/", method= RequestMethod.POST)
+	@RequestMapping(method= RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
 	public LoginResponse autenticar(@RequestBody Administrador administrador) throws ServletException{
 		
-		if (administrador.getEmail() ==null || administrador.getSenha()==null){
-			throw new ServletException("Email and password required!");
+		if (administrador.getEmail() == null || administrador.getSenha()==null){
+			throw new ServletException("Email e senha requeridos!");
 		}
 		
-		 Administrador admAutenticado = admService.getAdministradorPorEmail(administrador.getEmail());
+		 Administrador admAutenticado = admService.getAdministradorEmail(administrador.getEmail());
 		
 		if (admAutenticado==null){
-			throw new ServletException("User not found!");
+			throw new ServletException("Usuário não encontrado!");
 		}
 		
 		if (!admAutenticado.getSenha().equals(administrador.getSenha())){
-			throw new ServletException("Invalid email or password.");
+			throw new ServletException("Senha ou email inválido!");
 		}
 		
 		String token=  Jwts.builder()
