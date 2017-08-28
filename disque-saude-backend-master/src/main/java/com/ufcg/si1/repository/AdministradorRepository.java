@@ -4,7 +4,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
-import com.ufcg.si1.model.Administrador;
+import com.ufcg.si1.model.adm.Administrador;
 
 public interface AdministradorRepository extends JpaRepository<Administrador, Long>{
 

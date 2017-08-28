@@ -1,7 +1,7 @@
-app.service("adminApi", function($http, config){
+app.service("prefeituraService", function($http, config){
 
     var _modificaStatusPrefeitura = function(novoStatus){
-        return $http.post(config.baseUrl + "/modifica-status/", novoStatus);
+        return $http.post(config.baseUrl + "/modifica/status/", novoStatus);
     }
 
     return {

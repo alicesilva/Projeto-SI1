@@ -1,4 +1,4 @@
-app.service("especialideApi", function ($http, config) {
+app.service("especialideService", function ($http, config) {
 
     var _addEspecialidade = function(especialidade){
         return $http.post(config.baseUrl + "/especialidade/", especialidade);

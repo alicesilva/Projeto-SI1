@@ -3,7 +3,7 @@ package com.ufcg.si1.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.ufcg.si1.model.Administrador;
+import com.ufcg.si1.model.adm.Administrador;
 import com.ufcg.si1.repository.AdministradorRepository;
 
 import exceptions.AcaoNaoPermitidaException;
@@ -28,7 +28,7 @@ public class AdministradorServiceImpl implements AdministradorService{
 	}
 
 	@Override
-	public Administrador getAdministradorPorEmail(String email) {
+	public Administrador getAdministradorEmail(String email) {
 		return administradorRepository.getAdministradorPorEmail(email);
 	}
 

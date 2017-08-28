@@ -1,11 +1,11 @@
-app.service("cadastroApi", function($http, config){
+app.service("cadastroService", function($http, config){
 
-    var _salvarAdministrador = function(administrador){
+    var _cadastraAdm = function(administrador){
         return $http.post(config.baseUrl + "/cadastro/", JSON.stringify(administrador));
     }
 
     return {
-        salvarAdministrador : _salvarAdministrador
+        cadastraAdm : _cadastraAdm
     }
 
 });
